@@ -11,7 +11,38 @@ umask 022
 shopt -s cdspell # spell check
 shopt -s histappend # history append
 
-function lwc() { ls "$@" | wc -l; }
+alias rm='rm -I'
+alias vi='vim'
+alias cp='cp -iuf'
+alias mv='mv -if'
+alias scp='scp -c arcfour'
+alias ll='ls -l --color=auto'
+alias ls='ls --color=auto'
+alias la='ls -al --color=auto'
+alias ld='ls -Gl | grep ^d' #Only list directories
+alias lda='ls -Gal | grep ^d' #Only list directories, including hidden ones
+alias l.='ls -d .* --color=auto' #Show hidden files only
+alias wget='wget --content-disposition'
+
+alias htmllines='wc -l `find . -iname "*.html"` | sort -n'
+alias phplines='wc -l `find . -iname "*.php"` | sort -n'
+alias jslines='wc -l `find . -iname "*.js"` | sort -n'
+alias sasslines='wc -l `find . -iname "*.scss"` | sort -n'
+
+alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias github="chrome \`git remote -v | grep github.com | grep fetch | head -1 | field 2 | sed 's/git:/http:/g'\`"  #Open github web page of current git repo
+alias gpm="git push origin master"
+
+alias k9='kill -9'
+alias tm='ps -ef | grep'
+alias pp="ps axuf | pager"
+
+alias ducks='du -cks *|sort -rn|head -11'
+alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 10'
+alias upgrade='apt-get update && apt-get upgrade && apt-get clean'
+alias netlsn='lsof -i -P | grep LISTEN' # Show active network listeners
+
+lwc() { ls "$@" | wc -l; }
 lt() { ls -ltrsa "$@" | tail; }
 psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto; }
 fname() { find . -iname "*$@*"; }
@@ -41,37 +72,5 @@ extract () {
          echo "'$1' is not a valid file"
      fi
 }
-
-
-alias rm='rm -I'
-alias vi='vim'
-alias cp='cp -i'
-alias mv='mv -i'
-alias scp='scp -c arcfour'
-alias ll='ls -Al --color=auto'
-alias ls='ls  --color=auto'
-alias lf='ls -Gl | grep ^d' #Only list directories
-alias lsd='ls -Gal | grep ^d' #Only list directories, including hidden ones
-alias l.='ls -d .* --color=auto' #Show hidden files only
-alias wget='wget --content-disposition'
-
-alias htmllines='wc -l `find . -iname "*.html"` | sort -n'
-alias phplines='wc -l `find . -iname "*.php"` | sort -n'
-alias jslines='wc -l `find . -iname "*.js"` | sort -n'
-alias sasslines='wc -l `find . -iname "*.scss"` | sort -n'
-
-alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-alias github="chrome \`git remote -v | grep github.com | grep fetch | head -1 | field 2 | sed 's/git:/http:/g'\`"  #Open github web page of current git repo
-alias gpm="git push origin master"
-
-alias k9='kill -9'
-alias tm='ps -ef | grep'
-alias pp="ps axuf | pager"
-
-alias ducks='du -cks *|sort -rn|head -11'
-alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 10'
-
-alias upgrade='apt-get update && apt-get upgrade && apt-get clean'
-alias netlsn='lsof -i -P | grep LISTEN' # Show active network listeners
 
 export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
