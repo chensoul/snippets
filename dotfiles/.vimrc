@@ -5,7 +5,7 @@ set fenc=utf-8 		    " UTF-8
 set cpoptions=aABceFsmq
 "             |||||||||
 "             ||||||||+-- When joining lines, leave the cursor between joined lines
-"             |||||||+-- When a new match is created (showmatch) pause for .5
+"             |||||||+-- When a new match is created pause for .5
 "             ||||||+-- Set buffer options when entering the buffer
 "             |||||+-- :write command updates current file name automatically add <CR> to the last line when using :@r
 "             |||+-- Searching continues at the end of the match at the cursor position
