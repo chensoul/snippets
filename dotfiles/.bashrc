@@ -7,10 +7,6 @@ fi
 
 umask 022
 
-# Misc
-shopt -s cdspell # spell check
-shopt -s histappend # history append
-
 alias rm='rm -I'
 alias vi='vim'
 alias cp='cp -iuf'
