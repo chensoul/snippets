@@ -20,7 +20,7 @@
     st = "status"
     co = checkout
     ls = "ls-files"
-    ci = commit  
+    cm = commit  -m 
     br = branch  
     rt = reset --hard  
     unstage = reset HEAD  
