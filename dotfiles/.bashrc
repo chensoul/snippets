@@ -1,23 +1,5 @@
 # .bashrc
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
-fi
-
-umask 022
-
-alias rm='rm -I'
-alias vi='vim'
-alias cp='cp -iuf'
-alias mv='mv -if'
-alias scp='scp -c arcfour'
-alias ll='ls -l --color=auto'
-alias ls='ls --color=auto'
-alias la='ls -al --color=auto'
-alias ld='ls -Gl | grep ^d' #Only list directories
-alias lda='ls -Gal | grep ^d' #Only list directories, including hidden ones
-alias l.='ls -d .* --color=auto' #Show hidden files only
 alias wget='wget --content-disposition'
 alias hs='history'
 
@@ -27,7 +9,7 @@ alias jslines='wc -l `find . -iname "*.js"` | sort -n'
 alias sasslines='wc -l `find . -iname "*.scss"` | sort -n'
 
 alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-alias github="chrome \`git remote -v | grep github.com | grep fetch | head -1 | field 2 | sed 's/git:/http:/g'\`"  #Open github web page of current git repo
+alias github="chrome \`git remote -v | grep github.com | grep fetch | head -1 | sed 's/git:/http:/g'\`"  #Open github web page of current git repo
 alias gpm="git push origin master"
 alias gpl="git pull"
 
@@ -72,8 +54,3 @@ extract () {
 }
 
 export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-export JAVA_HOME=/usr/java/latest
-export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar
-export MVN_HOME=/chan/opt/apache-maven-3.0.5
-export ANT_HOME=/chan/opt/apache-ant-1.9.2
-export PATH=$JAVA_HOME/bin:$MVN_HOME/bin:$ANT_HOME/bin:$PATH
