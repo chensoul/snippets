@@ -1,5 +1,7 @@
 # .bashrc
 
+umask 022 
+
 alias wget='wget --content-disposition'
 alias hs='history'
 
@@ -8,9 +10,10 @@ alias phplines='wc -l `find . -iname "*.php"` | sort -n'
 alias jslines='wc -l `find . -iname "*.js"` | sort -n'
 alias sasslines='wc -l `find . -iname "*.scss"` | sort -n'
 
+alias jsa='jekyll server --watch'
 alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
-alias github="chrome \`git remote -v | grep github.com | grep fetch | head -1 | sed 's/git:/http:/g'\`"  #Open github web page of current git repo
 alias gpm="git push origin master"
+alias gpg="git push origin gitcafe-pages"
 alias gpl="git pull"
 
 alias k9='kill -9'
@@ -54,3 +57,10 @@ extract () {
 }
 
 export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export JAVA_HOME=$(/usr/libexec/java_home)
+export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
+export M2_HOME=/usr/local/Cellar/maven30/3.0.5/libexec
+export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar
+export PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
+export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar
+export PATH=$JAVA_HOME/bin:$PATH
