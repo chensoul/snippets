@@ -3,6 +3,8 @@
 ### Set default permissions. ###
 umask 0022
 
+sudo rm -rf /root/anaconda-ks.cfg /root/install.log*
+
 cat > /etc/hosts <<EOF
 127.0.0.1       localhost
 
@@ -37,5 +39,4 @@ yes|ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ""
 rm -rf /etc/yum.repos.d/*
 cp /vagrant/*.repo /etc/yum.repos.d/
 
-rm -rf anaconda-ks.cfg install.log*
 yum install vim expect openssh-server -y

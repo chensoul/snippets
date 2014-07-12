@@ -3,6 +3,8 @@
 ### Set default permissions. ###
 umask 0022
 
+sudo rm -rf /root/anaconda-ks.cfg /root/install.log*
+
 # Setup sudo to allow no-password sudo for "admin". Additionally,
 # make "admin" an exempt group so that the PATH is inherited.
 cp /etc/sudoers /etc/sudoers.orig
