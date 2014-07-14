@@ -3,7 +3,7 @@
 ### Set default permissions. ###
 umask 0022
 
-sudo rm -rf /root/anaconda-ks.cfg /root/install.log*
+sudo rm -rf /root/anaconda-ks.cfg /root/install.log /root/install.log.syslog /root/install-post.log
 
 # Setup sudo to allow no-password sudo for "admin". Additionally,
 # make "admin" an exempt group so that the PATH is inherited.
@@ -43,5 +43,6 @@ yes|ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ""
 
 rm -rf /etc/yum.repos.d/*
 cp /vagrant/*.repo /etc/yum.repos.d/
+yum clean all
 
 yum install vim -y
