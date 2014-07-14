@@ -1,6 +1,6 @@
-[centos]
+[entos]
 name=cdh
-baseurl=http://192.168.56.1/centos/
+baseurl=http://192.168.56.1/CentOS-6.4-x86_64/
 enabled=1
 gpgcheck=0
 
