@@ -45,4 +45,6 @@ rm -rf /etc/yum.repos.d/*
 cp /vagrant/*.repo /etc/yum.repos.d/
 yum clean all
 
-yum install vim -y
+yum remove -y perl
+
+yum install vim wget perl -y
