@@ -1,8 +1,8 @@
 [user]
-    email = june.chan@foxmail.com
-    name = javachen
+	email = june.chan@foxmail.com
+	name = javachen
 [color]
-    ui = auto
+	ui = true
 [color "branch"]
     current = yellow reverse
     local = yellow
@@ -32,4 +32,6 @@
     cp = cherry-pick -x  
     cb = checkout -b 
 [core]
-    filemode = true
+    filemode = false
+    autocrlf = false
+    safecrlf = true
