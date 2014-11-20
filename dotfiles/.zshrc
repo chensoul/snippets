@@ -45,19 +45,19 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git ant mvn)
+plugins=(git ant mvn colored-man colorize github jira vagrant virtualenv pip python brew osx zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
+   export EDITOR='vim'
 # else
 #   export EDITOR='mvim'
 # fi
@@ -70,3 +70,8 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 source ~/.bashrc
 source ~/.bash_profile
+
+bindkey "^R" history-incremental-search-backward
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+fpath=(/usr/local/share/zsh-completions $fpath)
