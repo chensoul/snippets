@@ -1,12 +1,3 @@
-"""This module contains code from
-Think Python by Allen B. Downey
-http://thinkpython.com
-
-Copyright 2012 Allen B. Downey
-License: GNU GPLv3 http://www.gnu.org/licenses/gpl.html
-
-"""
-
 import time
 
 
@@ -17,7 +8,7 @@ def make_word_list1():
     for line in fin:
         word = line.strip()
         t.append(word)
-        
+
     t.sort(cmp=None, key=None, reverse=True)
     return t
 
@@ -47,4 +38,3 @@ elapsed_time = time.time() - start_time
 print len(t)
 print t[:10]
 print elapsed_time, 'seconds'
-

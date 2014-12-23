@@ -1,10 +1,47 @@
-a=[1,2,3]
+# -* - coding: UTF-8 -* -
 
-print(a)
 
+a=[2,1,3]
+b=[4,5,6]
+
+#连接操作
+print a+b
+
+#追加
 a.append(4)
 
-print(a)
+print 'index of 4:', a.index(4)
+a.insert(4,4)
+
+#统计出现次数
+print 'count of 4:', a.count(4)
+
+#弹出最后一个元素
+a.pop()
+
+#删除元素4
+del a[3]
+a.remove(3)
+
+#extend效率高于连接操作
+a.extend(b)
+print "a extend b:",a
+
+#分片赋值
+b[1:]=list('abc')
+b[1:1]=['dd','ef']
+del b[0]
+
+print 'before sort,b:',b
+
+#排序
+b.reverse()
+b.sort()
+sorted(b)
+b.sort(cmp)
+b.sort(key=len,reverse=False)
+
+print 'after sort,b:',b
 
 print [3*x for x in a]
 

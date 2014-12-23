@@ -1,13 +1,3 @@
-"""
-
-Code example from Think Python, by Allen B. Downey.
-Available from http://thinkpython.com
-
-Copyright 2012 Allen B. Downey.
-Distributed under the GNU General Public License at gnu.org/licenses/gpl.html.
-
-"""
-
 from datetime import datetime
 
 # to avoid duplicating code, I'm importing everything from Time1

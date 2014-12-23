@@ -1,13 +1,3 @@
-"""This module contains code from
-Think Python by Allen B. Downey
-http://thinkpython.com
-
-Copyright 2012 Allen B. Downey
-License: GNU GPLv3 http://www.gnu.org/licenses/gpl.html
-
-"""
-
-
 def most_frequent(s):
     """Sorts the letters in s in reverse order of frequency.
 
@@ -28,7 +18,7 @@ def most_frequent(s):
         res.append(x)
 
     return res
-    
+
 
 def make_histogram(s):
     """Make a map from letters to number of times they appear in s.

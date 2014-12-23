@@ -1,12 +1,3 @@
-"""This module contains code from
-Think Python by Allen B. Downey
-http://thinkpython.com
-
-Copyright 2012 Allen B. Downey
-License: GNU GPLv3 http://www.gnu.org/licenses/gpl.html
-
-"""
-
 def make_word_dict():
     """Reads the words in words.txt and returns a dictionary
     that contains the words as keys."""
@@ -36,7 +27,7 @@ def is_reducible(word, word_dict):
 
     Also adds an entry to the memo dictionary.
 
-    A string is reducible if it has at least one child that is 
+    A string is reducible if it has at least one child that is
     reducible.  The empty string is also reducible.
 
     word: string

@@ -1,12 +1,3 @@
-"""This module contains code from
-Think Python by Allen B. Downey
-http://thinkpython.com
-
-Copyright 2012 Allen B. Downey
-License: GNU GPLv3 http://www.gnu.org/licenses/gpl.html
-
-"""
-
 def invert_dict(d):
     """Inverts a dictionary, returning a map from val to a list of keys.
 
@@ -24,8 +15,11 @@ def invert_dict(d):
 
 
 if __name__ == '__main__':
+
+    print dict([('name','aa'),('age',18)])
+    print dict(name='aa',age=18)
+
     d = dict(a=1, b=2, c=3, z=1)
     inverse = invert_dict(d)
     for val, keys in inverse.iteritems():
         print val, keys
-

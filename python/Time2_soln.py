@@ -1,16 +1,6 @@
-"""
-
-Code example from Think Python, by Allen B. Downey.
-Available from http://thinkpython.com
-
-Copyright 2012 Allen B. Downey.
-Distributed under the GNU General Public License at gnu.org/licenses/gpl.html.
-
-"""
-
 class Time(object):
     """Represents the time of day.
-       
+
     attributes: hour, minute, second
     """
     def __init__(self, hour=0, minute=0, second=0):
