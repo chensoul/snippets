@@ -1,17 +1,20 @@
-# -* - coding: UTF-8 -* -
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-#!/usr/bin/python
-
+from threading import Thread,Lock
 import Queue
-import threading
 import time
 
+threadList = ["Thread-1", "Thread-2", "Thread-3"]
+nameList = ["One", "Two", "Three", "Four", "Five"]
+workQueue = Queue.Queue(10)
+queueLock = Lock()
+threads = []
 exitFlag = 0
 
-class myThread (threading.Thread):
-    def __init__(self, threadID, name, q):
-        threading.Thread.__init__(self)
-        self.threadID = threadID
+class myThread (Thread):
+    def __init__(self, name, q):
+        Thread.__init__(self)
         self.name = name
         self.q = q
 
@@ -31,19 +34,11 @@ def process_data(threadName, q):
             queueLock.release()
         time.sleep(1)
 
-threadList = ["Thread-1", "Thread-2", "Thread-3"]
-nameList = ["One", "Two", "Three", "Four", "Five"]
-queueLock = threading.Lock()
-workQueue = Queue.Queue(10)
-threads = []
-threadID = 1
-
 # 创建新线程
 for tName in threadList:
-    thread = myThread(threadID, tName, workQueue)
+    thread = myThread(tName, workQueue)
     thread.start()
     threads.append(thread)
-    threadID += 1
 
 # 填充队列
 queueLock.acquire()

@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
 def make_word_dict():
     """Reads the words in words.txt and returns a dictionary
     that contains the words as keys."""

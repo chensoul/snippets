@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
 from datetime import datetime
 
 # to avoid duplicating code, I'm importing everything from Time1

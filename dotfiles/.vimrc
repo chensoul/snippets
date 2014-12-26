@@ -1,76 +1,64 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible		"不要vim模仿vi模式，建议设置，否则会有很多不兼容的问题
-set history=2000	    " Sets how many lines of history VIM has to remember
+set nocompatible		" Disable vi-compatibility
+set history=2000	            " Sets how many lines of history VIM has to remember
 filetype plugin on 		" load filetype plugins settings
 filetype indent on 		" load filetype indent settings
 
-command W w !sudo tee % > /dev/null
-
-set autoread        	" Set to auto read when a file is changed from the outside
-
 " With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
 
 " Fast saving
 nmap <leader>w :w!<cr>
+" Save a file as root (,W)
+nmap <leader>W :w !sudo tee % > /dev/null<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set wildmenu 	    	" Turn on the WiLd menu
+set wildmenu 	    	         " Turn on the WiLd menu
 set wildignore=*/tmp/*,*.so,*.swp,*.zip,*.class	" Ignore compiled files
-set title           	" show title in console title bar
+set title           	            " show title in console title bar
 set ttyfast         	" smoother changes
 set cmdheight=2     	" Height of the command bar
-set lazyredraw 	    	" do not redraw while running macros
+set lazyredraw 	" do not redraw while running macros
 set linespace=0     	" don't insert any extra pixel lines betweens rows
 set matchtime=5         " how many tenths of a second to blink matching brackets for
 set hlsearch        	" Highlight search results
 set incsearch       	" Makes search act like search in modern browsers
-set nohlsearch 		    " do not highlight searched for phrases
+set nohlsearch 	" do not highlight searched for phrases
 set nostartofline   	" leave my cursor where it was
 set novisualbell    	" don't blink
-set number 	    	    " turn on line numbers
+set number 	    	" turn on line numbers
 set numberwidth=5   	" We are good up to 99999 lines
-set report=0 		    " tell us when anything is changed via :...
+set report=0 		" tell us when anything is changed via :...
 set ruler 	            " Always show current positions along the bottom
-set scrolloff=10 	    " Keep 10 lines (top/bottom) for scope
+set scrolloff=10 	" Keep 10 lines (top/bottom) for scope
 set shortmess=aOstT 	" shortens messages to avoid 'press a key' prompt
-set showcmd 		    " show the command being typed
-set showmatch 		    " show matching brackets
+set showcmd 		" show the command being typed
+set showmatch 	" show matching brackets
 set magic           	" For regular expressions turn magic on
 set mat=2           	" How many tenths of a second to blink when matching brackets
+set laststatus=2           " Always show the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
+" => Files
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax enable		    " Enable syntax highlighting
+syntax enable                       " If you don't need color switch TextEdit
 set background=dark
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions+=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
-
-let &termencoding=&encoding 
-set fileencodings=utf-8,gbk 
-set encoding=utf8	    " Set utf8 as standard encoding and en_US as the standard language
-set ffs=unix,dos,mac	" Use Unix as the standard file type
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set paste
+set autoread                        " read alien changes automatically
+set autowrite                       " auto write file when thowing (e.g.) :make
+set autochdir                       " The working directory follows me
+let &termencoding=&encoding
+set fileencodings=utf-8,gbk
+set encoding=utf-8 nobomb       " Necessary to show Unicode glyphs
+set ffs=unix,dos,mac                   " Use Unix as the standard file type
 set nobackup
-set nowb
 set noswapfile
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -81,20 +69,9 @@ set smarttab		    " Be smart when using tabs ;)
 set shiftwidth=4	    " 1 tab == 4 spaces
 set tabstop=4
 
-set lbr					" Linebreak on 500 characters
-set tw=500
-
 set ai                  "Auto indent
 set si                  "Smart indent
-set wrap                "Wrap lines
-
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-set laststatus=2		" Always show the status line
-
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+set wrap             "Wrap lines
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim plugins

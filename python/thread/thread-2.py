@@ -1,20 +1,14 @@
-# -* - coding: UTF-8 -* -
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-
-#!/usr/bin/python
-
-
-import threading
+from threading import Thread
 import time
 
-exitFlag = 0
-
 #继承父类threading.Thread
-class myThread(threading.Thread):
+class myThread(Thread):
 
-    def __init__(self, threadID, name, delay):
-        threading.Thread.__init__(self)
-        self.threadID = threadID
+    def __init__(self, name, delay):
+        Thread.__init__(self)
         self.name = name
         self.delay = delay
 
@@ -25,15 +19,13 @@ class myThread(threading.Thread):
 
 def print_time(threadName, delay, counter):
     while counter:
-        if exitFlag:
-            thread.exit()
         time.sleep(delay)
         print "%s: %s" % (threadName, time.ctime(time.time()))
         counter -= 1
 
 # 创建新线程
-thread1 = myThread(1, "Thread-1", 1)
-thread2 = myThread(2, "Thread-2", 2)
+thread1 = myThread("Thread-1", 1)
+thread2 = myThread("Thread-2", 2)
 
 # 开启线程
 thread1.start()

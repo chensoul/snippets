@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
 def most_frequent(s):
     """Sorts the letters in s in reverse order of frequency.
 

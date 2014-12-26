@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 def invert_dict(d):
     """Inverts a dictionary, returning a map from val to a list of keys.
 

@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 class LinearMap(object):
     """A simple implementation of a map using a list of tuples
     where each tuple is a key-value pair."""

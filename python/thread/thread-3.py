@@ -1,14 +1,14 @@
-# -* - coding: UTF-8 -* -
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-#!/usr/bin/python
-
-import threading
+from threading import Thread,Lock
 import time
 
-class myThread (threading.Thread):
-    def __init__(self, threadID, name, delay):
-        threading.Thread.__init__(self)
-        self.threadID = threadID
+threadLock = Lock()
+
+class myThread (Thread):
+    def __init__(self, name, delay):
+        Thread.__init__(self)
         self.name = name
         self.delay = delay
 
@@ -28,22 +28,16 @@ def print_time(threadName, delay, counter):
         print "%s: %s" % (threadName, time.ctime(time.time()))
         counter -= 1
 
-threadLock = threading.Lock()
-threads = []
-
 # 创建新线程
-thread1 = myThread(1, "Thread-1", 1)
-thread2 = myThread(2, "Thread-2", 2)
+thread1 = myThread( "Thread-1", 1)
+thread2 = myThread("Thread-2", 2)
 
 # 开启新线程
 thread1.start()
 thread2.start()
 
-# 添加线程到线程列表
-threads.append(thread1)
-threads.append(thread2)
-
 # 等待所有线程完成
-for t in threads:
-    t.join()
+thread1.join()
+thread2.join()
+
 print "Exiting Main Thread"

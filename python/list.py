@@ -1,5 +1,5 @@
-# -* - coding: UTF-8 -* -
-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 a=[2,1,3]
 b=[4,5,6]
