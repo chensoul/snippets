@@ -3,7 +3,8 @@
 umask 022 
 
 alias wget='wget --content-disposition'
-alias hs='history'
+alias hsg='history |grep '
+alias tailf='tail -f'
 
 alias htmllines='wc -l `find . -iname "*.html"` | sort -n'
 alias phplines='wc -l `find . -iname "*.php"` | sort -n'
@@ -56,16 +57,15 @@ extract () {
      fi
 }
 
-export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.6)
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+
 export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
 export M2_HOME=/usr/local/Cellar/maven30/3.0.5/libexec
 export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar
-export PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
+export PATH=/usr/local/sbin:$JAVA_HOME/bin:$M2_HOME/bin:$PATH
 export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar
-export PATH=$JAVA_HOME/bin:$PATH
 
 export GRADLE_HOME=/usr/local/Cellar/gradle/2.0
 export PATH=$PATH:$GRADLE_HOME/bin
 
-export DOCKER_HOST=tcp://192.168.59.103:2375
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
