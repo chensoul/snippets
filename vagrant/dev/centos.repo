@@ -1,0 +1,5 @@
+[centos]
+name=cdh
+baseurl=http://192.168.56.1/centos6.4/
+enabled=1
+gpgcheck=0
