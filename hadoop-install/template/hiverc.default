@@ -1,0 +1,5 @@
+--
+-- this file is copied into $HOME/.hiverc at initial config time
+--
+set hive.exec.mode.local.auto=true;
+set hive.cli.print.header=true;

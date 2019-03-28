@@ -1,9 +1,10 @@
 snippets
 ========
 
-代码片段,主要是为了方便同步.
+常用代码片段：
 
-- bash：
+- bash：bash配置
 - dotfiles：系统的配置文件
-- javascript：
+- javascript：javascript脚本
 - python：python示例代码
+- hadoop-install：hadoop集群安装脚本

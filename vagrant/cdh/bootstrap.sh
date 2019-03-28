@@ -12,9 +12,9 @@ echo "Update /etc/hosts"
 cat > /etc/hosts <<EOF
 127.0.0.1       localhost
 
-192.168.56.121 cdh1
-192.168.56.122 cdh2
-192.168.56.123 cdh3
+192.168.56.121 cdh1.example.com cdh1
+192.168.56.122 cdh2.example.com cdh2
+192.168.56.123 cdh3.example.com cdh3
 EOF
 
 echo "Remove unused logs"
@@ -48,14 +48,21 @@ echo "nameserver 8.8.4.4" | tee -a /etc/resolv.conf
 echo "Setup ssh"
 [ ! -d /root/.ssh ] && ( mkdir /root/.ssh ) && ( chmod 600 /root/.ssh  ) && yes|ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ""
 
-install Git git
-install "Base tools" vim wget curl
-install "Hadoop dependencies" expect rsync pssh
+echo "Get centos yum"
+wget http://mirrors.aliyun.com/repo/Centos-6.repo -P /etc/yum.repos.d/
+wget https://archive.cloudera.com/cdh5/redhat/5/x86_64/cdh/cloudera-cdh5.repo -P /etc/yum.repos.d/
 
-install PostgreSQL postgresql-server postgresql-jdbc
+install "Base tools" vim wget curl ntp bind-utils expect rsync pssh
+
+echo "Start ntpd service"
+service ntpd start
+ntpdate -u cdh1
+
+install "PostgreSQL" postgresql-server postgresql-jdbc
 #sudo -u postgres createuser --superuser vagrant
 #sudo -u postgres createdb -O vagrant test1
-#sudo -u postgres createdb -O vagrant test2
 
+echo 'LC_ALL="zh_CN.UTF-8"' >> /etc/locale.conf
+sudo su -l postgres -c "postgresql-setup initdb"
 
 echo 'All set, rock on!'

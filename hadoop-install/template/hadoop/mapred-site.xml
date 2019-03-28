@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+  <property>
+    <name>mapreduce.framework.name</name>
+    <value>yarn</value>
+  </property>
+  <property>
+    <name>mapreduce.jobhistory.address</name>
+    <value>localhost:10020</value>
+  </property>
+  <property>
+    <name>mapreduce.jobhistory.webapp.address</name>
+    <value>localhost:19888</value>
+  </property>
+  <property>
+    <name>yarn.app.mapreduce.am.staging-dir</name>
+    <value>/user</value>
+  </property>
+
+  <property>
+    <name>mapred.child.java.opts</name>
+    <value> -Xmx180m -XX:+UseConcMarkSweepGC -XX:ParallelCMSThreads=1 -XX:ParallelGCThreads=1</value>
+  </property>
+  <!--http://www.cloudera.com/content/cloudera-content/cloudera-docs/CM4Ent/4.8.2/Cloudera-Manager-Release-Notes/cmrn_changed_features.html-->
+  <property>
+    <name>mapreduce.map.memory.mb</name>
+    <value>256</value>
+  </property>
+  <property>
+    <name>mapreduce.reduce.memory.mb</name>
+    <value>256</value>
+  </property>
+  <property>
+    <name>mapreduce.map.java.opts.max.heap</name>
+    <value>200</value>
+  </property>
+  <property>
+    <name>mapreduce.reduce.java.opts.max.heap</name>
+    <value>200</value>
+  </property>
+  <property>
+    <name>mapreduce.reduce.shuffle.parallelcopies</name>
+    <value>10</value>
+    <!-- 一般介于节点数开方和节点数一半之间，小于20节点，则为节点数-->
+  </property>
+  <property>
+    <name>mapreduce.task.io.sort.factor</name>
+    <value>64</value>
+  </property>
+  <property>
+    <name>mapreduce.task.io.sort.mb</name>
+    <value>256</value>
+  </property>
+</configuration>
