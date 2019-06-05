@@ -59,7 +59,7 @@ function select_repo {
 
 clean_repo_file
 select_repo os
-select_repo edh
+select_repo cdh
 
 service vsftpd restart
 chkconfig --add vsftpd >/dev/null

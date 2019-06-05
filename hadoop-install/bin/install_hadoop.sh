@@ -7,11 +7,20 @@ readonly ARGS="$@"
 NN_FILE=$PROGDIR/../conf/namenode
 DN_FILE=$PROGDIR/../conf/datanode
 
-echo "[INFO]:Install hadoop on namenode"
-pssh -P -i -h $NN_FILE "yum install -y hadoop-debuginfo hadoop-hdfs-namenode hadoop-hdfs-secondarynamenode \
- 		hadoop-mapreduce-historyserver hadoop-yarn-resourcemanager hive-metastore
-"
+NN="`cat $NN_FILE |sort -n | uniq | tr '\n' ' '|sed 's/ *$//'`"
+DN="`cat $DN_FILE |sort -n | uniq | tr '\n' ' '|sed 's/ *$//'`"
 
-echo "[INFO]:Install hadoop on datanode"
-pssh -P -i -h  $DN_FILE "yum install -y hadoop-debuginfo hadoop-hdfs-datanode hadoop-yarn-nodemanager hive-server2 hive-hbase zookeeper-server hbase-master hbase-regionserver
-"
+echo -e "Install Hadoop Service on namenodes"
+for node in $NN ;do
+    echo -e "Install Hadoop on $node"
+    ssh $node "yum install -y hadoop-hdfs-namenode hadoop-mapreduce-historyserver
+        hadoop-yarn-resourcemanager hbase hive-metastore zookeeper-server --nogpgcheck"
+    echo -e
+done
+
+echo -e "[INFO]:Install Hadoop Service on datanodes"
+for node in $DN ;do
+    echo -e "Install Hadoop on $node"
+    ssh $node "yum install -y hadoop-hdfs-datanode hadoop-yarn-nodemanager hive-server2 hive-hbase zookeeper-server hbase-master hbase-regionserver --nogpgcheck"
+    echo -e
+done

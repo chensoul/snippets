@@ -8,16 +8,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   (1..3).each do |i|
     config.vm.define vm_name = "cdh#{i}"  do |config|
-  		config.vm.provider "virtualbox" do |v|
-  			v.customize ["modifyvm", :id, "--name", vm_name, "--memory", "1200",'--cpus', 1]
-  		end
-  		config.vm.box = "centos6.5"
-  		config.vm.hostname =vm_name
-  		config.ssh.username ="vagrant"
-  		config.ssh.password="vagrant"
-  		config.vm.network :private_network, ip: "192.168.56.12#{i}"
-    	config.vm.provision :shell, :path => "bootstrap.sh",keep_color: true
+        config.vm.provider "virtualbox" do |v|
+            v.customize ["modifyvm", :id, "--name", vm_name, "--memory", "2048",'--cpus', 1]
+        end
+        config.vm.box = "centos7.2"
+        config.vm.hostname ="#{vm_name}.example.com"
+        config.ssh.username = "vagrant"
+        config.vm.network :private_network, ip: "192.168.56.12#{i}"
+      config.vm.provision :shell, :path => "bootstrap.sh"
     end
   end
-
 end

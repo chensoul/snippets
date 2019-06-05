@@ -27,12 +27,6 @@ echo "[INFO]:Remove related directories ..."
 rm -rf /usr/lib64/ganglia
 rm -rf /var/spool/nagios/nagios.cmd
 
-echo "[INFO]:Recovery repo files"
-cd /etc/yum.repos.d
-rm -rf os.repo* idh.repo*
-rename .repo.bak .repo *
-cd - >/dev/null
-
 yum-complete-transaction >/dev/null 2>&1
 
 echo "[INFO]:Uninstallation for `hostname` finished."

@@ -1,34 +1,65 @@
 #!/bin/sh
+readonly PROGNAME=$(basename $0)
+readonly PROGDIR=$(readlink -m $(dirname $0))
+readonly ARGS="$@"
+
+#ps -ef|grep zookeeper|grep QuorumPeerMain|awk '{print $2}'|xargs kill -9
+NN_FILE=$PROGDIR/../conf/namenode
+DN_FILE=$PROGDIR/../conf/datanode
+ALL="`cat $NN_FILE $DN_FILE |sort -n | uniq | tr '\n' ' '| sed 's/ *$//'`"
+
+HADOOP_TMP_DIR=/var/hadoop
+
 
 if [ `id -u` -ne 0 ]; then
    echo "[ERROR]:Must run as root";   exit 1
 fi
 
-#ps -ef|grep zookeeper|grep QuorumPeerMain|awk '{print $2}'|xargs kill -9
+myid=0
+for server in $ALL ;do
+    myid=`expr $myid + 1`
+    echo -e "Init hadoop data dictionary on $server ..."
 
-echo "[INFO]:Format hadoop cluster"
-su -s /bin/bash hdfs -c 'yes Y | hadoop namenode -format' >/dev/null 2>&1
+    ssh -q $server  "
+        echo -e "remove $HADOOP_TMP_DIR on $server ..."
 
-echo "[INFO]:Start hadoop-hdfs-namenode service ..."
-service hadoop-hdfs-namenode start >/dev/null 2>&1
+        rm -rf $HADOOP_TMP_DIR
+        mkdir -p $HADOOP_TMP_DIR/dfs/{dn,nn,namesecondary}
+        chown -R hdfs:hdfs $HADOOP_TMP_DIR/dfs
+        chmod -R 700 $HADOOP_TMP_DIR/dfs/
+
+        #http://archive.cloudera.com/cdh4/cdh/4/hadoop/hadoop-project-dist/hadoop-hdfs/ShortCircuitLocalReads.html
+        rm -rf /var/run/hadoop-hdfs/*   && chown -R hdfs:hdfs /var/run/hadoop-hdfs/
+
+        mkdir -p $HADOOP_TMP_DIR/{nm-local-dir,userlogs}
+        chown -R yarn:yarn $HADOOP_TMP_DIR/{nm-local-dir,userlogs}
+
+        sudo -u hive touch /var/lib/hive/.hivehistory
+        ln -fs `ls /usr/lib/hive/lib/hive-hbase-handler*|head -n 1` /usr/lib/hive/lib/hive-hbase-handler.jar
+
+        mkdir -p /var/hbase
+        chown -R hbase:hbase /var/hbase
+        chmod -R 700 /var/hbase
+
+        mkdir -p /usr/lib/hbase/lib/native/Linux-amd64-64/
+        ln -fs /usr/lib64/libsnappy.so /usr/lib/hbase/lib/native/Linux-amd64-64/
+
+        echo -e "init zookeeper on $server ..."
+        service zookeeper-server stop
+
+        rm -rf /var/lib/zookeeper && mkdir /var/lib/zookeeper
+        chown -R zookeeper:zookeeper /var/lib/zookeeper && chmod -R 700 /var/lib/zookeeper
+
+        service zookeeper-server init --myid=$myid >/dev/null 2>&1
+    "
+done
+
+echo -e "Format hadoop cluster"
+service hadoop-hdfs-namenode stop
+sleep 3
+su -s /bin/bash hdfs -c 'yes Y | hdfs namenode -format'
+
+echo "Start hadoop-hdfs-namenode service ..."
+service hadoop-hdfs-namenode start
 sleep 10
 
-echo "[INFO]:create hdfs dir ..."
-su -s /bin/bash hdfs -c 'hadoop fs -chmod 755 /'
-
-while read dir user group perm
-do
-  su -s /bin/bash hdfs -c "hadoop fs -mkdir -p $dir;hadoop fs -chmod -R $perm $dir;hadoop fs -chown $user:$group $dir" >/dev/null 2>&1
-  echo "[INFO]:mkdir $dir"
-done << EOF
-/tmp hdfs hadoop 1777
-/yarn/apps yarn mapred 1777
-/user hdfs hadoop 755
-/user/root root hadoop 755
-/user/hive hive hadoop 777
-/user/hive/warehouse hive hadoop 1777
-/user/history mapred hadoop 1777
-/user/history/done mapred hadoop 750
-/user/history/done_intermediate mapred hadoop 1777
-/hbase hbase hadoop 755
-EOF

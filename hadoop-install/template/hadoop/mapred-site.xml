@@ -31,25 +31,4 @@
     <name>mapreduce.reduce.memory.mb</name>
     <value>256</value>
   </property>
-  <property>
-    <name>mapreduce.map.java.opts.max.heap</name>
-    <value>200</value>
-  </property>
-  <property>
-    <name>mapreduce.reduce.java.opts.max.heap</name>
-    <value>200</value>
-  </property>
-  <property>
-    <name>mapreduce.reduce.shuffle.parallelcopies</name>
-    <value>10</value>
-    <!-- 一般介于节点数开方和节点数一半之间，小于20节点，则为节点数-->
-  </property>
-  <property>
-    <name>mapreduce.task.io.sort.factor</name>
-    <value>64</value>
-  </property>
-  <property>
-    <name>mapreduce.task.io.sort.mb</name>
-    <value>256</value>
-  </property>
 </configuration>

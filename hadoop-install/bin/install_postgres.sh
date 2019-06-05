@@ -28,21 +28,22 @@ get_standard_conforming_strings(){
 }
 
 check_postgresql_installed(){
-  echo "[INFO]:Install postgresql-server"
+  echo -e "Install postgresql-server"
 	if ! rpm -q postgresql-server >/dev/null ; then
-	  yum install postgresql-server postgresql-jdbc -y >/dev/null 2>&1
+	    yum install postgresql-server postgresql-jdbc -y >/dev/null 2>&1
+        ln -s /usr/share/java/postgresql-jdbc.jar /usr/lib/hive/lib/postgresql-jdbc.jar
 		chkconfig postgresql on
 	fi
 
 	pkill -9 postgres
 	rm -rf /var/lib/pgsql/data /var/run/postgresql/.s.PGSQL.$DB_PORT
 
-  echo "[INFO]:Init postgresql database"
-	service postgresql initdb
+    echo -e "Init postgresql database"
+	postgresql-setup initdb
 }
 
 configure_postgresql_conf(){
-  echo "[INFO]:Configure postgresql conf"
+    echo -e "Configure postgresql conf"
 
 	sed -i "s/#port = 5432/port = $DB_PORT/" $CONF_FILE
 	sed -i "s/max_connections = 100/max_connections = 600/" $CONF_FILE
@@ -51,16 +52,17 @@ configure_postgresql_conf(){
 
 	local SCS=$(get_standard_conforming_strings)
 	if [ "$SCS" != "" ]; then
-		echo $SCS
+		echo -e $SCS
 		sed -i "s/#standard_conforming_strings = on/standard_conforming_strings = off/" $CONF_FILE
 	fi
 }
 
 enable_remote_connections(){
-  echo "[INFO]:Enable remote connections"
+    echo -e "Enable remote connections"
 
 	sed -i "s/127.0.0.1\/32/0.0.0.0\/0/" /var/lib/pgsql/data/pg_hba.conf
 	sed -i "s/ident/trust/" /var/lib/pgsql/data/pg_hba.conf
+    sed -i "s/peer/trust/" /var/lib/pgsql/data/pg_hba.conf
 }
 
 create_db(){
@@ -68,12 +70,13 @@ create_db(){
 	DB_USER=$2
 	DB_PASSWORD=$3
 
-  echo "[INFO]:Create database $DB_NAME"
+    echo -e "Create database $DB_NAME"
 
-	su -c "cd ; /usr/bin/pg_ctl start -w -m fast -D /var/lib/pgsql/data" postgres
-	su -c "cd ; /usr/bin/psql --command \"CREATE USER $DB_USER WITH PASSWORD '$DB_PASSWORD'; \" " postgres
-	su -c "cd ; /usr/bin/psql --command \"CREATE DATABASE $DB_NAME owner=$DB_USER;\" " postgres
-	su -c "cd ; /usr/bin/psql --command \"GRANT ALL privileges ON DATABASE $DB_NAME TO $DB_USER;\" " postgres
+    cd /var/lib/pgsql/data
+	su -c "/usr/bin/pg_ctl start -w -m fast -D /var/lib/pgsql/data" postgres
+	su -c "/usr/bin/psql --command \"CREATE USER $DB_USER WITH PASSWORD '$DB_PASSWORD'; \" " postgres
+	su -c "/usr/bin/psql --command \"CREATE DATABASE $DB_NAME owner=$DB_USER;\" " postgres
+	su -c "/usr/bin/psql --command \"GRANT ALL privileges ON DATABASE $DB_NAME TO $DB_USER;\" " postgres
 }
 
 init_hive_metastore(){
@@ -81,13 +84,13 @@ init_hive_metastore(){
 	DB_USER=$2
 	DB_FILE=$3
 
-  echo "[INFO]:Init hive metastore using $DB_FILE"
-	su -c "cd ; /usr/bin/psql -U $DB_USER -d $DB_NAME -f $DB_FILE" postgres
+    echo -e "Init hive metastore using $DB_FILE"
+	su -c "/usr/bin/psql -U $DB_USER -d $DB_NAME -f $DB_FILE" postgres
 }
 
 manager_db(){
-  echo "[INFO]:$1 postgres"
-	su -c "cd ; /usr/bin/pg_ctl $1 -w -m fast -D /var/lib/pgsql/data" postgres
+    echo -e "$1 postgres"
+	su -c "/usr/bin/pg_ctl $1 -w -m fast -D /var/lib/pgsql/data" postgres
 }
 
 readonly DB_HOST=$(hostname -f)
@@ -96,10 +99,10 @@ readonly DB_HOSTPORT="$DB_HOST:$DB_PORT"
 CONF_FILE="/var/lib/pgsql/data/postgresql.conf"
 
 check_postgresql_installed
-
 configure_postgresql_conf
 enable_remote_connections
-create_db metastore hiveuser redhat >/dev/null  2>&1
+create_db metastore hive hive
 
-init_hive_metastore metastore hiveuser  "/usr/lib/hive/scripts/metastore/upgrade/postgres/hive-schema-0.13.0.postgres.sql" >/dev/null  2>&1
-manager_db restart >/dev/null  2>&1
+manager_db restart
+init_hive_metastore metastore hive `ls /usr/lib/hive/scripts/metastore/upgrade/postgres/hive-schema-* |tail -n 1`
+

@@ -2,38 +2,11 @@
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
 	<property>
-		<name>dfs.namenode.name.dir</name>
-		<value>file:///data/dfs/nn</value>
-	</property>
-	<property>
-		<name>dfs.datanode.data.dir</name>
-		<value>file:///data/dfs/dn</value>
-	</property>
-	<property>
-		<name>dfs.https.address</name>
-		<value>localhost:50470</value>
-	</property>
-	<property>
-		<name>dfs.https.port</name>
-		<value>50470</value>
-	</property>
-	<property>
-		<name>dfs.namenode.http-address</name>
-		<value>localhost:50070</value>
-	</property>
-	<property>
-		<name>dfs.namenode.acls.enabled</name>
-		<value>true</value>
-	</property>
-	<property>
-		<name>dfs.replication</name>
-		<value>1</value>
-	</property>
-	<property>
-		<name>dfs.block.size</name>
-		<value>268435456</value>
-	</property>
-	<property>
+        <name>dfs.http.address</name>
+        <value>cdh1:50070</value>
+    </property>
+
+	<!-- <property>
 		  <name>dfs.datanode.max.xcievers</name>
 		  <value>81920</value>
 	</property>
@@ -64,9 +37,5 @@
 	<property>
 		<name>dfs.client.domain.socket.data.traffic</name>
 		<value>false</value>
-	</property>
-	<property>
-		 <name>dfs.webhdfs.enabled</name>
-		 <value>true</value>
-	</property>
+	</property> -->
 </configuration>
