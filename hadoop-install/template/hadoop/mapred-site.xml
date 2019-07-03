@@ -13,22 +13,4 @@
     <name>mapreduce.jobhistory.webapp.address</name>
     <value>localhost:19888</value>
   </property>
-  <property>
-    <name>yarn.app.mapreduce.am.staging-dir</name>
-    <value>/user</value>
-  </property>
-
-  <property>
-    <name>mapred.child.java.opts</name>
-    <value> -Xmx180m -XX:+UseConcMarkSweepGC -XX:ParallelCMSThreads=1 -XX:ParallelGCThreads=1</value>
-  </property>
-  <!--http://www.cloudera.com/content/cloudera-content/cloudera-docs/CM4Ent/4.8.2/Cloudera-Manager-Release-Notes/cmrn_changed_features.html-->
-  <property>
-    <name>mapreduce.map.memory.mb</name>
-    <value>256</value>
-  </property>
-  <property>
-    <name>mapreduce.reduce.memory.mb</name>
-    <value>256</value>
-  </property>
 </configuration>

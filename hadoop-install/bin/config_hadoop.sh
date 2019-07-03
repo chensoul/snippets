@@ -15,6 +15,7 @@ HADOOP_TMP_DIR=/var/hadoop
 
 echo "Copy hadoop template conf to /etc/*/conf"
 for srv in hadoop hbase hive zookeeper ; do
+    \cp -r /etc/${srv}/conf /etc/${srv}/conf.bak
 	\cp $PROGDIR/../template/${srv}/* /etc/${srv}/conf/
 	sed -i "s|localhost|$NN|g" /etc/${srv}/conf/*
 done

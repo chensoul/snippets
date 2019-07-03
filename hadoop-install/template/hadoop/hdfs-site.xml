@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
-	<property>
-        <name>dfs.http.address</name>
-        <value>cdh1:50070</value>
+    <!-- CLOUDERA-BUILD: CDH-64745. -->
+    <property>
+        <name>cloudera.erasure_coding.enabled</name>
+        <value>true</value>
     </property>
 
-	<!-- <property>
-		  <name>dfs.datanode.max.xcievers</name>
-		  <value>81920</value>
-	</property>
-	<property>
-		<name>fs.permissions.umask-mode</name>
-		<value>022</value>
-	</property>
-	<property>
+    <property>
 		<name>dfs.permissions.superusergroup</name>
 		<value>hadoop</value>
 	</property>
+
+	<property>
+		<name>dfs.permissions.umask-mode</name>
+		<value>022</value>
+	</property>
+
+	<property>
+		  <name>dfs.datanode.max.xcievers</name>
+		  <value>81920</value>
+	</property>
+
+	<!--
 	<property>
 		<name>dfs.client.read.shortcircuit</name>
 		<value>true</value>

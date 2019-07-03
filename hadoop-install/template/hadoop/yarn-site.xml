@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <configuration>
+   <property>
+    <name>yarn.resourcemanager.hostname</name>
+    <value>localhost</value>
+  </property>
+
   <property>
     <name>yarn.nodemanager.aux-services</name>
     <value>mapreduce_shuffle</value>
@@ -14,11 +18,6 @@
   <property>
     <name>yarn.log-aggregation-enable</name>
     <value>true</value>
-  </property>
-
-  <property>
-      <name>yarn.resourcemanager.hostname</name>
-      <value>localhost</value>
   </property>
 
   <property>
