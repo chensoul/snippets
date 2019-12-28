@@ -1,8 +1,8 @@
 [user]
-	email = june.chan@foxmail.com
-	name = javachen
+    email = junecloud@163.com
+    name = chenzj
 [color]
-	ui = true
+    ui = true
 [color "branch"]
     current = yellow reverse
     local = yellow
@@ -18,20 +18,26 @@
     untracked = cyan
 [alias]
     st = "status"
+    rs = reset --hard	
     co = checkout
     ls = "ls-files"
-    cm = commit  -m 
+    cm = commit 
     br = branch  
-    rt = reset --hard  
     unstage = reset HEAD  
     uncommit = reset --soft HEAD^  
-    l = log --pretty=oneline --abbrev-commit --graph --decorate
     amend = commit --amend  
     who = shortlog -n -s --no-merges  
     g = grep -n --color -E  
     cp = cherry-pick -x  
     cb = checkout -b 
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset'
+[diff]
+    tool = meld
+[merge]
+    tool = meld
+[push]
+    default = simple
 [core]
     filemode = false
-    autocrlf = false
+    autocrlf = input
     safecrlf = true
