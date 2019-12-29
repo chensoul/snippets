@@ -6,5 +6,5 @@ snippets
 - bash：bash配置
 - dotfiles：系统的配置文件
 - javascript：javascript脚本
-- python：python示例代码
+- vagrant：Vagrantfile例子
 - hadoop-install：hadoop集群安装脚本
