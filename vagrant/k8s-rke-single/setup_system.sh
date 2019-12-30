@@ -43,9 +43,8 @@ sed -i 's/^plugins.*/plugins=0/g' /etc/yum.conf
 #安装常用软件
 yum install -y curl
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
-curl -s -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
-sed -i -e '/aliyuncs/d' /etc/yum.repos.d/CentOS-Base.repo
-curl -k -s -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+curl -s -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.cloud.tencent.com/repo/centos7_base.repo
+curl -k -s -o /etc/yum.repos.d/epel.repo http://mirrors.cloud.tencent.com/repo/epel-7.repo
 yum install -y wget vim tree jq net-tools telnet ntp tcpdump bind-utils socat yum-utils git expect
 
 #配置时区
@@ -106,7 +105,7 @@ sed -i -e 's/^#UseDNS.*$/UseDNS no/' /etc/ssh/sshd_config
 #禁用SSH允许空密码
 sed -i -e 's/^#PermitEmptyPasswords.*$/PermitEmptyPasswords no/' /etc/ssh/ssh_config
 #M配置SSH 最大认证尝试次数为5或更低
-sed -i -e 's/^#MaxAuthTries.*$/MaxAuthTries 3/' /etc/ssh/sshd_config
+sed -i -e 's/^#MaxAuthTries.*$/MaxAuthTries 4/' /etc/ssh/sshd_config
 #修改协议版本
 sed -i -e 's/^#Protocol.*$/Protocol 2/' /etc/ssh/ssh_config
 

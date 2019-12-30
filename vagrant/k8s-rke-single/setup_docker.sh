@@ -3,13 +3,10 @@
 USER=chenzj
 
 #安装docker
-# yum install -y yum-utils device-mapper-persistent-data lvm2
-# yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-# yum install docker-ce -y
-
-curl -fsSL get.docker.com -o get-docker.sh
-sh get-docker.sh --mirror Aliyun
-rm -rf get-docker.sh 
+yum install -y yum-utils device-mapper-persistent-data lvm2
+wget -O /etc/yum.repos.d/docker-ce.repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo sed -i 's+download.docker.com+mirrors.cloud.tencent.com/docker-ce+' /etc/yum.repos.d/docker-ce.repo
+yum install docker-ce -y
 
 systemctl enable docker && systemctl start docker
 
@@ -22,8 +19,11 @@ cat > /etc/docker/daemon.json <<EOF
       "max-file": "3"
     },
     "bip": "172.17.10.1/24",
-    "registry-mirrors": ["https://hub.daocloud.io","http://hub-mirror.c.163.com/",
-      "https://docker.mirrors.ustc.edu.cn/","https://registry.docker-cn.com"],
+    "registry-mirrors": [
+      "https://hub.daocloud.io",
+      "https://docker.mirrors.ustc.edu.cn/",
+      "https://registry.docker-cn.com"
+    ],
     "graph":"/data/docker",
     "exec-opts": ["native.cgroupdriver=systemd"],
     "storage-driver": "overlay2",
