@@ -1,5 +1,14 @@
 #!/bin/bash
 
+cat > /etc/sysctl.d/docker.conf <<EOF
+net.ipv4.ip_forward = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-arptables = 1
+net.netfilter.nf_conntrack_max=2310720
+EOF
+sysctl -p /etc/sysctl.d/docker.conf
+
 #安装docker
 yum install -y yum-utils device-mapper-persistent-data lvm2
 wget -O /etc/yum.repos.d/docker-ce.repo https://download.docker.com/linux/centos/docker-ce.repo

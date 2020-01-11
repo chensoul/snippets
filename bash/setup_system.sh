@@ -85,7 +85,7 @@ EOF
 systemctl daemon-reload && systemctl start disable-thp &&systemctl enable disable-thp
 
 USER=chenzj
-useradd -d /home/$USER -G docker,root $USER
+useradd --system --shell /bin/bash --create-home --home-dir /home/$USER -G docker,root $USER
 echo $USER|passwd $USER --stdin >/dev/null 2>&1
 echo "$USER ALL = (root) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/$USER
 sudo -u $USER ssh-keygen -f /home/$USER/.ssh/id_rsa -t rsa -N ""
@@ -113,27 +113,22 @@ sed -i 's/^[ ]*StrictHostKeyChecking.*/StrictHostKeyChecking no/g' /etc/ssh/ssh_
 systemctl restart sshd
 
 cat > /etc/sysctl.d/custom.conf <<EOF
-# ip转发
-net.ipv4.ip_nonlocal_bind = 1
-net.ipv4.ip_forward = 1
 net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_tw_recycle = 1
+net.ipv4.tcp_sack = 1
+net.ipv4.tcp_timestamps = 1
+net.ipv4.tcp_window_scaling = 1
+net.ipv4.tcp_no_metrics_save = 1
 net.ipv4.tcp_rmem = 65536 129024 33554432
 net.ipv4.tcp_wmem = 65536 129024 33554432
 net.ipv4.tcp_mem = 6194592 8259456 134217728
-net.ipv4.tcp_max_syn_backlog = 16384
 net.ipv4.tcp_fin_timeout = 20
 
-net.core.rmem_max = 33554432
+# 接收数据包内存大小
+net.core.rmem_max = 33554432 # 32MB
 net.core.wmem_max = 33554432
 net.core.rmem_default = 124928
 net.core.wmem_default = 124928
-
-# 配置网桥的流量
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-net.bridge.bridge-nf-call-arptables = 1
-net.netfilter.nf_conntrack_max=2310720
 
 # 文件打开数
 fs.inotify.max_user_instances=8192
@@ -175,10 +170,8 @@ rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-4.el7.elrepo.noarch.rpm
 yum --enablerepo=elrepo-kernel install -y kernel-lt kernel-lt-devel 
 awk -F\' '$1=="menuentry " {print i++ " : " $2}' /etc/grub2.cfg
 grub2-set-default 0
-sed -i 's/GRUB_DEFAULT=saved/GRUB_DEFAULT=0/g' /etc/default/grub
 grub2-mkconfig -o /boot/grub2/grub.cfg
-
-# reboot 
+reboot 
 
 # rpm -qa | grep kernel
 # yum remove kernel*-3.10* -y
