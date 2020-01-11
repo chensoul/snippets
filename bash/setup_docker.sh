@@ -1,11 +1,9 @@
 #!/bin/bash
 
-USER=chenzj
-
 #安装docker
 yum install -y yum-utils device-mapper-persistent-data lvm2
 wget -O /etc/yum.repos.d/docker-ce.repo https://download.docker.com/linux/centos/docker-ce.repo
-sudo sed -i 's+download.docker.com+mirrors.cloud.tencent.com/docker-ce+' /etc/yum.repos.d/docker-ce.repo
+sed -i 's+download.docker.com+mirrors.cloud.tencent.com/docker-ce+' /etc/yum.repos.d/docker-ce.repo
 yum install docker-ce -y
 
 systemctl enable docker && systemctl start docker
@@ -16,15 +14,16 @@ cat > /etc/docker/daemon.json <<EOF
     "log-driver": "json-file",
     "log-opts": {
       "max-size": "100m",
-      "max-file": "3"
+      "max-file": "5"
     },
+    "dns": ["114.114.114.114","119.29.29.29", "182.254.116.116"],
     "bip": "172.17.10.1/24",
     "registry-mirrors": [
       "https://hub.daocloud.io",
       "https://docker.mirrors.ustc.edu.cn/",
       "https://registry.docker-cn.com"
     ],
-    "graph":"/data/docker",
+    "graph":"/var/lib/docker",
     "exec-opts": ["native.cgroupdriver=systemd"],
     "storage-driver": "overlay2",
     "storage-opts": [
@@ -35,11 +34,8 @@ EOF
 sed -i '/containerd.sock.*/ s/$/ -H tcp:\/\/0.0.0.0:2375 -H unix:\/\/var\/run\/docker.sock /' /usr/lib/systemd/system/docker.service
 systemctl daemon-reload && systemctl restart docker
 
-useradd -G docker $USER
-echo $USER|passwd $USER --stdin >/dev/null 2>&1
-sudo echo "$USER ALL = (root) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/$USER
-sudo -u $USER ssh-keygen -f /home/$USER/.ssh/id_rsa -t rsa -N ""
-sudo -u $USER ./ssh_nopassword.expect $(hostname) $USER $USER
+USER=chenzj
+usermod -G docker,root $USER
 chown $USER:docker /var/run/docker.sock
 
 curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-`uname -s`-`uname -m` \

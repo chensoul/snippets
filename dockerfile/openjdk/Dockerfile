@@ -4,7 +4,8 @@
 
 FROM openjdk:8u201-jdk-alpine
 
-RUN echo 'https://mirrors.cloud.tencent.com/alpine/v3.11/main/' > /etc/apk/repositories \
+RUN set -euxo pipefail \
+    && echo 'https://mirrors.cloud.tencent.com/alpine/v3.11/main/' > /etc/apk/repositories \
     && echo 'https://mirrors.cloud.tencent.com/alpine/v3.11/community/' >> /etc/apk/repositories \
     && apk update \
     && apk add --no-cache tzdata bash tini curl busybox-extras \

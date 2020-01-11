@@ -1,6 +1,27 @@
+# https://github.com/alfg/docker-ffmpeg/blob/master/Dockerfile
+
 FROM javachen/openjdk:8u201-jdk-alpine
 
-RUN apk update \
-  && apk add --no-cache nasm zlib-dev yasm-dev lame-dev libogg-dev x264-dev \
-  	libvpx-dev libvorbis-dev freetype-dev libass-dev libwebp-dev rtmpdump-dev libtheora-dev opus-dev ffmpeg \
-  && apk del nasm
+RUN apk add --no-cache \
+  build-base \
+  freetype-dev \
+  gcc \
+  lame-dev \
+  libogg-dev \
+  libass \
+  libass-dev \
+  libvpx-dev \
+  libvorbis-dev \
+  libwebp-dev \
+  libtheora-dev \
+  opus-dev \
+  pkgconf \
+  pkgconfig \
+  rtmpdump-dev \
+  x264-dev \
+  x265-dev \
+  yasm \
+  ffmpeg
+
+
+CMD ["/usr/bin/ffmpeg"]  

@@ -1,43 +1,25 @@
 [user]
-    email = junecloud@163.com
-    name = chenzj
-[color]
-    ui = true
-[color "branch"]
-    current = yellow reverse
-    local = yellow
-    remote = green
-[color "diff"]
-    meta = yellow bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
-[color "status"]
-    added = yellow
-    changed = green
-    untracked = cyan
+	email = junecloud@163.com
+    	name = chenzj
 [alias]
-    st = "status"
-    rs = reset --hard	
-    co = checkout
-    ls = "ls-files"
-    cm = commit 
-    br = branch  
-    unstage = reset HEAD  
-    uncommit = reset --soft HEAD^  
-    amend = commit --amend  
-    who = shortlog -n -s --no-merges  
-    g = grep -n --color -E  
-    cp = cherry-pick -x  
-    cb = checkout -b 
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset'
-[diff]
-    tool = meld
-[merge]
-    tool = meld
-[push]
-    default = simple
+    	st = "status"
+	throw = reset --hard HEAD
+	throwh = reset --hard HEAD^
+    	co = checkout
+    	cm = commit
+    	ls = "ls-files"
+    	ci = commit -a -v
+    	br = branch  
+    	unstage = reset HEAD  
+    	uncommit = reset --soft HEAD^  
+    	amend = commit --amend  
+    	who = shortlog -n -s --no-merges  
+    	g = grep -n --color -E  
+    	cp = cherry-pick -x  
+    	cb = checkout -b 
+    	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset'
 [core]
-    filemode = false
-    autocrlf = input
-    safecrlf = true
+    	editor = vim
+    	filemode = false
+    	autocrlf = input
+    	safecrlf = true

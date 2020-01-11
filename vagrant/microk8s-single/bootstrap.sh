@@ -18,8 +18,6 @@ source ~/.bashrc
 microk8s.start
 microk8s.enable dashboard dns ingress registry
 
-
-
 #https://microk8s.io
 #https://github.com/ubuntu/microk8s
 #https://tutorials.ubuntu.com/tutorial/install-a-local-kubernetes-with-microk8s#0

@@ -25,10 +25,10 @@ grep ^* /etc/security/limits.conf |grep nofile  >/dev/null
 if [ $? -eq 0 ];then
 sed -i '/^#/!{/nofile/d}' /etc/security/limits.conf
 echo '*		soft	nofile		81920' >>  /etc/security/limits.conf
-echo '*               hard    nofile          81920' >>  /etc/security/limits.conf
+echo '*     hard    nofile      81920' >>  /etc/security/limits.conf
 else
 echo '*		soft	nofile		81920' >>  /etc/security/limits.conf
-echo '*               hard    nofile          81920' >>  /etc/security/limits.conf
+echo '*     hard    nofile      81920' >>  /etc/security/limits.conf
 fi
 #grep ^* /etc/security/limits.conf |grep nofile
 
@@ -37,10 +37,10 @@ echo '' > /etc/security/limits.d/90-nproc.conf
 if [ $? -eq 0 ];then
 sed -i '/^#/!{/noproc/d}' /etc/security/limits.conf
 echo '*		soft	noproc		81920' >>  /etc/security/limits.conf
-echo '*               hard    noproc          81920' >>  /etc/security/limits.conf
+echo '*     hard    noproc      81920' >>  /etc/security/limits.conf
 else
 echo '*		soft	noproc		81920' >>  /etc/security/limits.conf
-echo '*               hard    noproc          81920' >>  /etc/security/limits.conf
+echo '*     hard    noproc      81920' >>  /etc/security/limits.conf
 fi
 
 echo ''
