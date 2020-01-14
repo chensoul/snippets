@@ -16,7 +16,7 @@ yum install -y curl
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
 rm -rf CentOS*.repo
 curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.cloud.tencent.com/repo/centos7_base.repo
-curl -o /etc/yum.repos.d/epel.repo http://mirrors.cloud.tencent.com/repo/epel-7.repo
+rpm -Uvh http://mirrors.ustc.edu.cn/epel/epel-release-latest-7.noarch.rpm
 #禁用fastestmirror插件
 sed -i 's/^enabled.*/enabled=0/g' /etc/yum/pluginconf.d/fastestmirror.conf
 sed -i 's/^plugins.*/plugins=0/g' /etc/yum.conf
@@ -41,6 +41,14 @@ systemctl restart systemd-journald
 
 # 配置系统语言
 localectl set-locale LANG=en_US.UTF-8
+cat >> ~/.bashrc <<EOF
+## US English ##
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+export LC_COLLATE=C
+export LC_CTYPE=en_US.UTF-8
+EOF
+source ~/.bashrc
 
 # 配置时区
 timedatectl set-timezone Asia/Shanghai
@@ -154,24 +162,23 @@ root    hard    nofile  131072
 EOF
 
 # 安装openjdk
-yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel
-cat > /etc/profile.d/java8.sh <<EOF
-export JAVA_HOME=$(dirname $(dirname $(readlink $(readlink $(which javac)))))
-export PATH=\$PATH:\$JAVA_HOME/bin
-export CLASSPATH=.:\$JAVA_HOME/jre/lib:\$JAVA_HOME/lib:\$JAVA_HOME/lib/tools.jar
-EOF
-source /etc/profile.d/java8.sh
+# yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel
+# cat > /etc/profile.d/java8.sh <<EOF
+# export JAVA_HOME=$(dirname $(dirname $(readlink $(readlink $(which javac)))))
+# export PATH=\$PATH:\$JAVA_HOME/bin
+# export CLASSPATH=.:\$JAVA_HOME/jre/lib:\$JAVA_HOME/lib:\$JAVA_HOME/lib/tools.jar
+# EOF
+# source /etc/profile.d/java8.sh
 
 # 关闭NUMA
 sed -i 's/rhgb quiet/rhgb quiet numa=off/g' /etc/default/grub
 
 # 升级内核
-rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-4.el7.elrepo.noarch.rpm
-yum --enablerepo=elrepo-kernel install -y kernel-lt kernel-lt-devel 
-awk -F\' '$1=="menuentry " {print i++ " : " $2}' /etc/grub2.cfg
-grub2-set-default 0
-grub2-mkconfig -o /boot/grub2/grub.cfg
-reboot 
+# yum --enablerepo=elrepo-kernel install -y kernel-lt kernel-lt-devel 
+# awk -F\' '$1=="menuentry " {print i++ " : " $2}' /etc/grub2.cfg
+# grub2-set-default 0
+# grub2-mkconfig -o /boot/grub2/grub.cfg
+# reboot 
 
 # rpm -qa | grep kernel
 # yum remove kernel*-3.10* -y
