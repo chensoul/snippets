@@ -1,5 +1,7 @@
 #!/bin/bash
 
+modprobe br_netfilter
+ 
 cat > /etc/sysctl.d/docker.conf <<EOF
 net.ipv4.ip_forward = 1
 net.bridge.bridge-nf-call-ip6tables = 1
@@ -13,6 +15,7 @@ sysctl -p /etc/sysctl.d/docker.conf
 yum install -y yum-utils device-mapper-persistent-data lvm2
 wget -O /etc/yum.repos.d/docker-ce.repo https://download.docker.com/linux/centos/docker-ce.repo
 sed -i 's+download.docker.com+mirrors.cloud.tencent.com/docker-ce+' /etc/yum.repos.d/docker-ce.repo
+yum remove docker docker-common  docker-selinux docker-engine -y
 yum install docker-ce -y
 
 systemctl enable docker && systemctl start docker
@@ -25,7 +28,6 @@ cat > /etc/docker/daemon.json <<EOF
       "max-size": "100m",
       "max-file": "5"
     },
-    "dns": ["114.114.114.114","119.29.29.29", "182.254.116.116"],
     "bip": "172.17.10.1/24",
     "registry-mirrors": [
       "https://hub.daocloud.io",
@@ -42,10 +44,6 @@ cat > /etc/docker/daemon.json <<EOF
 EOF
 sed -i '/containerd.sock.*/ s/$/ -H tcp:\/\/0.0.0.0:2375 -H unix:\/\/var\/run\/docker.sock /' /usr/lib/systemd/system/docker.service
 systemctl daemon-reload && systemctl restart docker
-
-USER=chenzj
-usermod -G docker,root $USER
-chown $USER:docker /var/run/docker.sock
 
 curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-`uname -s`-`uname -m` \
   > /usr/local/bin/docker-compose
