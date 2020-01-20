@@ -1,6 +1,6 @@
 # https://github.com/alfg/docker-ffmpeg/blob/master/Dockerfile
 
-FROM javachen/openjdk:8u201-jdk-alpine
+FROM javachen/alpine-base-jdk:8
 
 RUN apk add --no-cache \
   build-base \
