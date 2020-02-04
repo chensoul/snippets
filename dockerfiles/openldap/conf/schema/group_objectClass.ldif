@@ -1,4 +1,4 @@
-dn: olcOverlay=memberof,olcDatabase={2}hdb,cn=config
+dn: olcOverlay=memberof,olcDatabase={1}hdb,cn=config
 objectClass: olcConfig
 objectClass: olcMemberOf
 objectClass: olcOverlayConfig

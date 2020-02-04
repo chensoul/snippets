@@ -1,6 +1,6 @@
 # https://gitee.com/pengzhile/atlassian-agent
 
-FROM  atlassian/jira-software:8.6.1
+FROM  atlassian/jira-software:8.7.0
 
 USER root
 
