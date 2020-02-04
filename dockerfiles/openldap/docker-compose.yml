@@ -10,12 +10,12 @@ services:
       - "636:636"
     volumes:
       - ./data/certs:/container/service/slapd/assets/certs
-      - ./data/etc:/etc/ldap
+      - ./data/etc:/etc/ldap/slapd.d
       - ./data/var:/var/lib/ldap
       - ./data/run:/container/run
     environment:
-      - LDAP_ORGANISATION=JavaChen
-      - LDAP_DOMAIN=javachen.xyz
+      - LDAP_ORGANISATION=Wesine
+      - LDAP_DOMAIN=wesine.com
       - LDAP_ADMIN_PASSWORD=admin
       - LDAP_CONFIG_PASSWORD=config
       - LDAP_BACKEND=hdb
@@ -24,7 +24,7 @@ services:
       - LDAP_TLS_CRT_FILENAME=ldap.crt
       - LDAP_TLS_KEY_FILENAME=ldap.key
     restart: always
-  
+
   phpldapadmin:
     image: osixia/phpldapadmin
     container_name: phpldapadmin
@@ -49,9 +49,9 @@ services:
       - LAM_PASSWORD=lam
       - LAM_LANG=zh_CN
       - LDAP_SERVER=ldap://openldap:389
-      - LDAP_DOMAIN=javachen.xyz
-      - LDAP_BASE_DN=dc=javachen,dc=xyz
-      - ADMIN_USER=cn=admin,dc=javachen,dc=xyz
-      - DEBUG=true 
+      - LDAP_DOMAIN=wesine.com
+      - LDAP_BASE_DN=dc=wesine,dc=com
+      - ADMIN_USER=cn=admin,dc=wesine,dc=com
+      - DEBUG=true
     depends_on:
-      - openldap  
+      - openldap
