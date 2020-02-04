@@ -1,0 +1,25 @@
+cat > basedomain.ldif <<EOF
+dn: dc=javachen,dc=xyz
+objectClass: top
+objectClass: dcObject
+objectclass: organization
+o: Javachen Xyz
+dc: javachen
+
+dn: cn=admin,dc=javachen,dc=xyz
+objectClass: organizationalRole
+cn: admin
+description: Directory Manager
+
+dn: ou=People,dc=javachen,dc=xyz
+objectClass: organizationalUnit
+ou: People
+
+dn: ou=Group,dc=javachen,dc=xyz
+objectClass: organizationalUnit
+ou: Group
+
+dn: ou=Dept,dc=javachen,dc=xyz
+objectClass: organizationalUnit
+ou: Dept
+EOF

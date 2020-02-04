@@ -1,0 +1,14 @@
+# refint.ldif
+dn: cn=module,cn=config
+cn: module
+objectclass: olcModuleList
+objectclass: top
+olcmoduleload: refint
+olcmodulepath: /usr/lib/ldap
+
+dn: olcOverlay={1}refint,olcDatabase={2}hdb,cn=config
+objectClass: olcConfig
+objectClass: olcMemberOf
+objectClass: olcOverlayConfig
+objectClass: top
+olcOverlay: refint
