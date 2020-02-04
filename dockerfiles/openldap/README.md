@@ -103,8 +103,10 @@ docker-compose up -d
 启用 OpenLDAP 的 memberOf 特性：
 
 ```
-ldapadd -Y EXTERNAL -H ldapi:/// -f conf/schema/memberof.ldif
-ldapadd -Y EXTERNAL -H ldapi:/// -f conf/schema/refint.ldif
+docker-compose exec openldap bash
+cd /etc/ldap/slapd.d
+ldapadd -Q -Y EXTERNAL -H ldapi:/// -f schema/module_group.ldif
+ldapadd -Q -Y EXTERNAL -H ldapi:/// -f schema/group_objectClass.ldif
 ```
 
 添加用户和目录：
@@ -122,11 +124,11 @@ $ docker-compose exec openldap bash
 >>> ldapwhoami -H ldap://localhost -x
 anonymous
 
->>> ldapwhoami -H ldap://localhost -x -D cn=admin,dc=javachen,dc=xyz -w admin
+>>> ldapwhoami -H ldap://localhost -x -D cn=admin,dc=wesine,dc=com -w admin
 
->>> ldapsearch -H ldap://localhost -x -b "dc=javachen,dc=xyz"
+>>> ldapsearch -H ldap://localhost -x -b "dc=wesine,dc=com"
 
->>> ldapsearch -H ldap://localhost -b "dc=javachen,dc=xyz" -D cn=admin,dc=javachen,dc=xyz -w admin
+>>> ldapsearch -H ldap://localhost -b "dc=wesine,dc=com" -D cn=admin,dc=wesine,dc=com -w admin
 
 ```
 

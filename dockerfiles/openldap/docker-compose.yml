@@ -10,7 +10,7 @@ services:
       - "636:636"
     volumes:
       - ./data/certs:/container/service/slapd/assets/certs
-      - ./data/etc:/etc/ldap/slapd.d
+      - ./data/etc:/etc/ldap
       - ./data/var:/var/lib/ldap
       - ./data/run:/container/run
     environment:
