@@ -1,6 +1,6 @@
 # https://gitee.com/pengzhile/atlassian-agent
 
-FROM atlassian/confluence-server:7.0.4
+FROM atlassian/confluence-server:7.2.2
 
 USER root
 
@@ -8,5 +8,4 @@ USER root
 COPY "atlassian-agent.jar" /opt/atlassian/confluence/
 
 # 设置启动加载代理包
-RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo Asia/Shanghai > /etc/timezone \
-	&& echo 'export CATALINA_OPTS="-javaagent:/opt/atlassian/confluence/atlassian-agent.jar ${CATALINA_OPTS}"' >> /opt/atlassian/confluence/bin/setenv.sh
+RUN echo 'export CATALINA_OPTS="-javaagent:/opt/atlassian/confluence/atlassian-agent.jar ${CATALINA_OPTS}"' >> /opt/atlassian/confluence/bin/setenv.sh

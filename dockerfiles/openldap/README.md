@@ -36,7 +36,6 @@ services:
   openldap:
     image: osixia/openldap
     container_name: openldap
-    hostname: ldap.javachen.xyz
     command: "--loglevel debug"
     ports:
       - "389:389"
@@ -48,7 +47,7 @@ services:
       - ./data/run:/container/run
     environment:
       - LDAP_ORGANISATION=JavaChen
-      - LDAP_DOMAIN=javachen.xyz
+      - LDAP_DOMAIN=javachen.com
       - LDAP_ADMIN_PASSWORD=admin
       - LDAP_CONFIG_PASSWORD=config
       - LDAP_BACKEND=hdb
@@ -80,12 +79,12 @@ cd data/certs
 
 openssl req \
   -x509 -nodes -days 3650 -sha256 \
-  -subj '/C=CN/ST=HB/L=WH/CN=javachen.xyz' \
+  -subj '/C=CN/ST=HB/L=WH/CN=javachen.com' \
   -newkey rsa:2048 -keyout ca.key -out ca.crt
 
 openssl req \
   -new -sha256 -newkey rsa:2048 -nodes \
-  -subj '/CN=ldap.javachen.xyz/O=JavaChen/C=CN/ST=HB/L=WH' \
+  -subj '/CN=ldap.javachen.com/O=JavaChen/C=CN/ST=HB/L=WH' \
   -keyout ldap.key -out ldap.csr
 
 openssl x509 \
@@ -105,14 +104,13 @@ docker-compose up -d
 ```
 docker-compose exec openldap bash
 cd /etc/ldap/slapd.d
-ldapadd -Q -Y EXTERNAL -H ldapi:/// -f schema/module_group.ldif
-ldapadd -Q -Y EXTERNAL -H ldapi:/// -f schema/group_objectClass.ldif
+ldapadd -Q -Y EXTERNAL -H ldapi:/// -f schema/memberof.ldif
 ```
 
 添加用户和目录：
 
 ```
-ldapadd -x -D cn=admin,dc=javachen,dc=xyz -W -f basedomain.ldif
+ldapadd -x -D cn=admin,dc=javachen,dc=com -W -f basedomain.ldif
 ```
 
 
@@ -124,11 +122,11 @@ $ docker-compose exec openldap bash
 >>> ldapwhoami -H ldap://localhost -x
 anonymous
 
->>> ldapwhoami -H ldap://localhost -x -D cn=admin,dc=wesine,dc=com -w admin
+>>> ldapwhoami -H ldap://localhost -x -D cn=admin,dc=javachen,dc=com -w admin
 
->>> ldapsearch -H ldap://localhost -x -b "dc=wesine,dc=com"
+>>> ldapsearch -H ldap://localhost -x -b "dc=javachen,dc=com"
 
->>> ldapsearch -H ldap://localhost -b "dc=wesine,dc=com" -D cn=admin,dc=wesine,dc=com -w admin
+>>> ldapsearch -H ldap://localhost -b "dc=javachen,dc=com" -D cn=admin,dc=javachen,dc=com -w admin
 
 ```
 
