@@ -2,9 +2,6 @@
 
 FROM  atlassian/jira-software:8.7.0
 
-USER root
-
-# 将代理破解包加入容器
 COPY "atlassian-agent.jar" /opt/atlassian/jira/
 
 # 设置启动加载代理包
