@@ -188,7 +188,7 @@ $mail_from = "noreply@wesine.com";
 $mail_from_name = "Self Service Password";
 $mail_signature = "";
 # Notify users anytime their password is changed
-$notify_on_change = false;
+$notify_on_change = true;
 # PHPMailer configuration (see https://github.com/PHPMailer/PHPMailer)
 $mail_sendmailpath = '/usr/sbin/sendmail';
 $mail_protocol = 'smtp';
