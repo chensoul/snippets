@@ -20,7 +20,7 @@ ENCRYPT_PASSWORD=$(slappasswd -h {ssha} -s "$PASSWORD")
 # add count & group 
 cat <<EOF | ldapmodify -c -h $LDAP_SERVER_IP -p $LDAP_SERVER_PORT \
     -w $LDAP_ADMIN_PASS -D $LDAP_ADMIN_USER 
-dn: cn=$USERNAME,ou=People,dc=wesine,dc=com
+dn: cn=$USER_ID,ou=People,dc=wesine,dc=com
 changetype: add
 objectClass: top
 objectClass: person
