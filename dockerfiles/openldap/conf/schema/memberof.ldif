@@ -1,3 +1,9 @@
+dn: cn=module,cn=config
+cn: module
+objectClass: olcModuleList
+olcModuleLoad: memberof.la
+olcModulePath: /usr/lib64/openldap
+
 dn: olcOverlay=memberof,olcDatabase={1}hdb,cn=config
 objectClass: olcConfig
 objectClass: olcMemberOf

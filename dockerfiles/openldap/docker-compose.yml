@@ -44,7 +44,7 @@ services:
     container_name: ldapaccountmanager
     restart: always
     ports:
-      - "8011:80"
+      - "8081:80"
     environment:
       - LAM_PASSWORD=lam
       - LAM_LANG=zh_CN
@@ -53,5 +53,15 @@ services:
       - LDAP_BASE_DN=dc=wesine,dc=com
       - ADMIN_USER=cn=admin,dc=wesine,dc=com
       - DEBUG=true
+    depends_on:
+      - openldap
+
+  ldap-ssp:
+    image: ralfherzog/ltb-self-service-password
+    restart: always
+    ports:
+      - "8082:80"
+    volumes:
+      - ./conf/config.inc.php:/usr/share/self-service-password/conf/config.inc.php:ro  
     depends_on:
       - openldap
