@@ -12,11 +12,10 @@ if [ x"$#" != x"3" ];then
 fi
 
 # param
-USERNAME="$1"
-PASSWORD="$2"
+USER_ID="$1"
+REALNAME="$2"
+PASSWORD="wesine027"
 ENCRYPT_PASSWORD=$(slappasswd -h {ssha} -s "$PASSWORD")
-REALNAME="$3"
-REALNAME_BASE64=$(echo -n $REALNAME | base64)
 
 # add count & group 
 cat <<EOF | ldapmodify -c -h $LDAP_SERVER_IP -p $LDAP_SERVER_PORT \
@@ -27,13 +26,13 @@ objectClass: top
 objectClass: person
 objectClass: organizationalPerson
 objectClass: inetOrgPerson
-cn: $USERNAME
-sn:: $REALNAME_BASE64
-mail: $USERNAME@wesine.com
+cn: $USER_ID
+sn: $REALNAME
+mail: $USER_ID@wesine.com
 userPassword: $ENCRYPT_PASSWORD
 
-dn: cn=Jira,ou=Group,dc=wesine,dc=com
+dn: cn=jira,ou=Group,dc=wesine,dc=com
 changetype: modify
 add: uniqueMember
-uniqueMember: cn=$USERNAME,ou=Group,dc=wesine,dc=com
+uniqueMember: uid=$USER_ID,ou=Group,dc=wesine,dc=com
 EOF
