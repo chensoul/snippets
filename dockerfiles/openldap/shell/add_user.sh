@@ -6,8 +6,8 @@ LDAP_SERVER_PORT="389"
 LDAP_ADMIN_USER="cn=admin,dc=wesine,dc=com"
 LDAP_ADMIN_PASS="admin"
 
-if [ x"$#" != x"3" ];then
-    echo "Usage: $0 <username> <password> <realname>"
+if [ x"$#" != x"2" ];then
+    echo "Usage: $0 <username> <realname>"
     exit -1
 fi
 
