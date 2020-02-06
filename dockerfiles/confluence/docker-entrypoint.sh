@@ -21,8 +21,6 @@ if [ "$(stat -c "%Y" "${CONF_INSTALL}/conf/server.xml")" -eq "0" ]; then
   if [ -n "${X_PROXY_SECURE}" ]; then
     sed -i 's/secure=""/secure="${X_PROXY_SECURE}"/g' server.xml
   fi
-  if [ -n "${X_PATH}" ]; then
-  fi
 fi
 
 if [ -f "${CERTIFICATE}" ]; then
