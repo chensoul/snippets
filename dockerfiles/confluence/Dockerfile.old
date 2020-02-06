@@ -6,6 +6,7 @@ USER root
 ENV CONF_HOME=/var/atlassian/confluence \
     CONF_INSTALL=/opt/atlassian/confluence \
     JAVA_CACERTS=$JAVA_HOME/jre/lib/security/cacerts \
+    CERTIFICATE=$CONF_HOME/certificate \
     CONF_VERSION=7.3.1
 
 RUN set -euxo pipefail \
