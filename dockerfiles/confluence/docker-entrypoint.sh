@@ -8,19 +8,18 @@ set -e
 # perform modifications to the configuration file.
 if [ "$(stat -c "%Y" "${CONF_INSTALL}/conf/server.xml")" -eq "0" ]; then
   if [ -n "${X_PROXY_NAME}" ]; then
-    xmlstarlet ed --inplace --pf --ps --insert '//Connector[@port="8090"]' --type "attr" --name "proxyName" --value "${X_PROXY_NAME}" "${CONF_INSTALL}/conf/server.xml"
+    sed -i 's/proxyName=""/proxyName="${X_PROXY_NAME}"/g' server.xml
   fi
   if [ -n "${X_PROXY_PORT}" ]; then
-    xmlstarlet ed --inplace --pf --ps --insert '//Connector[@port="8090"]' --type "attr" --name "proxyPort" --value "${X_PROXY_PORT}" "${CONF_INSTALL}/conf/server.xml"
+    sed -i 's/proxyName=""/proxyName="${X_PROXY_PORT}"/g' server.xml
   fi
   if [ -n "${X_PROXY_SCHEME}" ]; then
-    xmlstarlet ed --inplace --pf --ps --insert '//Connector[@port="8090"]' --type "attr" --name "scheme" --value "${X_PROXY_SCHEME}" "${CONF_INSTALL}/conf/server.xml"
+    sed -i 's/http/${X_PROXY_SCHEME}/g' server.xml
   fi
   if [ -n "${X_PROXY_SECURE}" ]; then
-    xmlstarlet ed --inplace --pf --ps --insert '//Connector[@port="8090"]' --type "attr" --name "secure" --value "${X_PROXY_SECURE}" "${CONF_INSTALL}/conf/server.xml"
+    sed -i 's/secure=""/secure="${X_PROXY_SECURE}"/g' server.xml
   fi
   if [ -n "${X_PATH}" ]; then
-    xmlstarlet ed --inplace --pf --ps --update '//Context[@docBase="../confluence"]/@path' --value "${X_PATH}" "${CONF_INSTALL}/conf/server.xml"
   fi
 fi
 
