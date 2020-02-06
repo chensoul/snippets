@@ -8,7 +8,9 @@ ENV CONF_HOME=/var/atlassian/confluence \
     JAVA_CACERTS=$JAVA_HOME/jre/lib/security/cacerts \
     CONF_VERSION=7.3.1
 
-RUN set -x \
+RUN set -euxo pipefail \
+    && echo 'https://mirrors.cloud.tencent.com/alpine/v3.11/main/' > /etc/apk/repositories \
+    && echo 'https://mirrors.cloud.tencent.com/alpine/v3.11/community/' >> /etc/apk/repositories \
     && apk --no-cache add curl xmlstarlet bash ttf-dejavu libc6-compat \
     && mkdir -p                "${CONF_HOME}" \
     && chmod -R 700            "${CONF_HOME}" \
