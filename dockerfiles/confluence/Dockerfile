@@ -7,7 +7,7 @@ COPY "atlassian-agent.jar" /opt/atlassian/confluence/
 COPY docker-entrypoint.sh /
 
 # 设置启动加载代理包
-RUN apt-get update && apt-get install xmlstarlet -y \
+RUN apt-get update && apt-get upgrade && apt-get install xmlstarlet -y \
 	&& echo 'export CATALINA_OPTS="-javaagent:/opt/atlassian/confluence/atlassian-agent.jar ${CATALINA_OPTS}"' >> /opt/atlassian/confluence/bin/setenv.sh 
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
