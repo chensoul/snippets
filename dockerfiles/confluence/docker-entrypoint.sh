@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# https://github.com/zhangguanzhang/Dockerfile/blob/master/atlassian-confluence/docker-entrypoint.sh
+
 set -e
 [[ "${DEBUG}" == "true" ]] && set -x
 
