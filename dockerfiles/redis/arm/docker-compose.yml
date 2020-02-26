@@ -1,8 +1,0 @@
-redis:
-  image: easypi/redis-arm
-  command: --appendonly yes
-  ports:
-    - "6379:6379"
-  volumes:
-    - ./data:/data
-  restart: always
