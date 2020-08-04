@@ -1,23 +1,8 @@
 [user]
-	email = junecloud@163.com
-    	name = chenzj
+	email = czj.june@gmail.col
+    	name = junetalk
 [alias]
     	st = "status"
-	throw = reset --hard HEAD
-	throwh = reset --hard HEAD^
-    	co = checkout
-    	cm = commit
-    	ls = "ls-files"
-    	ci = commit -a -v
-    	br = branch  
-    	unstage = reset HEAD  
-    	uncommit = reset --soft HEAD^  
-    	amend = commit --amend  
-    	who = shortlog -n -s --no-merges  
-    	g = grep -n --color -E  
-    	cp = cherry-pick -x  
-    	cb = checkout -b 
-    	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset'
 [core]
     	editor = vim
     	filemode = false

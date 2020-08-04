@@ -2,18 +2,17 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/chenzj/.oh-my-zsh"
+export ZSH="/Users/junetalk/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
 ZSH_THEME="pygmalion"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -34,7 +33,7 @@ ZSH_THEME="pygmalion"
 # export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -65,11 +64,11 @@ ZSH_THEME="pygmalion"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git mvn colorize encode64 urltools wd last-working-dir sublime vagrant zsh-autosuggestions autojump )
+plugins=(git mvn colorize encode64 urltools wd last-working-dir sublime vagrant Z zsh-syntax-highlighting git-open)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -99,16 +98,13 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH=~/.oh-my-zsh
-export TERM=xterm-256color
-
-fpath=(/usr/local/share/zsh-completions $fpath)
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+
+export JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8
+export M2_HOME=/usr/local/Cellar/maven30/3.0.5/libexec
+export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar
+export PATH=/usr/local/sbin:$JAVA_HOME/bin:$M2_HOME/bin:$PATH
+
 
 alias cl="clear"
 alias cls="clear"
