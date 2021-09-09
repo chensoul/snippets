@@ -22,4 +22,7 @@ node_modules
 .sass-cache
 
 # Java
+logs
+target
 *.log
+
