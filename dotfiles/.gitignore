@@ -1,28 +1,60 @@
-# Folder view configuration files
+# Mac
 .DS_Store
-Desktop.ini
 
-# Thumbnail cache files
-._*
-Thumbs.db
+# VSCode
+.vscode/
 
-# Files that might appear on external disks
-.Spotlight-V100
-.Trashes
+# WebStorm
+.idea/
+*.iws
+*.iml
+*.ipr
 
-# Compiled Python files
-*.pyc
+# npm
+npm-debug.log
 
-# Compiled C++ files
-*.out
+# yarn
+yarn-error.log
 
-# Application specific files
-venv
-node_modules
-.sass-cache
+# VIM
+*.un~
+Session.vim
+.netrwhist
+*~
+*.swp
+.lvimrc
 
-# Java
+# VS Code
+.vscode/
+# localhistory
+.history
+
+# PayPal project specific stuff
+.nvmrc
+.agignore
+
+# Over-arching stuff
+*.ignored/
+*.ignored.*
+
+# git
+*.patch
+
+# eslint
+.eslintcache
+
+
+# custom
 logs
-target
 *.log
 
+# java
+.flattened-pom.xml
+target/
+!.mvn/wrapper/maven-wrapper.jar
+*.xml.versionsBackup
+
+
+# python
+.env
+.venv
