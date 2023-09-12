@@ -97,6 +97,7 @@ brew install zopfli
 # Install dev tools
 brew install maven 
 brew install go 
+brew install orbstack
 brew install python3
 brew install visual-studio-code 
 
