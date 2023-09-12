@@ -42,9 +42,6 @@ if ! fgrep -q "${BREW_PREFIX}/bin/bash" /etc/shells; then
   chsh -s "${BREW_PREFIX}/bin/bash";
 fi;
 
-# Install `wget` with IRI support.
-brew install wget --with-iri
-
 # Install GnuPG to enable PGP-signing commits.
 brew install gnupg
 
@@ -55,10 +52,10 @@ brew install openssh
 brew install screen
 
 # Install font tools.
-brew tap bramstein/webfonttools
-brew install sfnt2woff
-brew install sfnt2woff-zopfli
-brew install woff2
+# brew tap bramstein/webfonttools
+# brew install sfnt2woff
+# brew install sfnt2woff-zopfli
+# brew install woff2
 
 # Install some CTF tools; see https://github.com/ctfs/write-ups.
 # brew install aircrack-ng
@@ -92,7 +89,8 @@ brew install ack
 brew install git
 brew install git-lfs
 brew install gs
-brew install imagemagick --with-webp
+brew install ffmpeg
+brew install imagemagick
 brew install lua
 brew install lynx
 brew install p7zip
@@ -103,8 +101,8 @@ brew install rlwrap
 brew install ssh-copy-id
 brew install tree
 brew install vbindiff
+brew install wget
 brew install zopfli
-brew install ffmpeg
 
 # Install dev tools
 brew install maven 
@@ -135,3 +133,8 @@ export NVS_HOME="$HOME/.nvs"
 git clone https://github.com/jasongin/nvs --depth=1 "$NVS_HOME"
 . "$NVS_HOME/nvs.sh" install
 nvs remote node https://npm.taobao.org/mirrors/node/
+
+
+
+curl -s "https://get.sdkman.io" | bash
+sdk install java 8.0.382-zulu
