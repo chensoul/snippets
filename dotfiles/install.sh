@@ -9,8 +9,6 @@ echo "installing homebrew"
 (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.bash_profile
 
 git -C "$(brew --repo)" remote set-url origin https://mirrors.cloud.tencent.com/homebrew/brew.git
-git -C "$(brew --repo homebrew/core)" remote set-url origin https://mirrors.cloud.tencent.com//homebrew/homebrew-core.git
-
 
 # Make sure we’re using the latest Homebrew.
 brew update
@@ -30,26 +28,15 @@ ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
 brew install moreutils
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
 brew install findutils
-# Install GNU `sed`, overwriting the built-in `sed`.
-brew install gnu-sed --with-default-names
 # Install a modern version of Bash.
 brew install bash
-brew install bash-completion2
+brew install bash-completion
 
 # Switch to using brew-installed bash as default shell
 if ! fgrep -q "${BREW_PREFIX}/bin/bash" /etc/shells; then
   echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells;
   chsh -s "${BREW_PREFIX}/bin/bash";
 fi;
-
-# Install GnuPG to enable PGP-signing commits.
-brew install gnupg
-
-# Install more recent versions of some macOS tools.
-brew install vim --with-override-system-vi
-brew install grep
-brew install openssh
-brew install screen
 
 # Install font tools.
 # brew tap bramstein/webfonttools
@@ -85,22 +72,25 @@ brew install screen
 
 # Install other useful binaries.
 brew install ack
-#brew install exiv2
 brew install git
 brew install git-lfs
 brew install gs
+brew install grep
 brew install ffmpeg
 brew install imagemagick
 brew install lua
 brew install lynx
+brew install openssh
 brew install p7zip
 brew install pigz
 brew install pv
 brew install rename
 brew install rlwrap
 brew install ssh-copy-id
+brew install screen
 brew install tree
 brew install vbindiff
+brew install vim
 brew install wget
 brew install zopfli
 
@@ -127,7 +117,6 @@ brew install --cask wechat
 brew cleanup
 
 
-
 echo "install nvs"
 export NVS_HOME="$HOME/.nvs"
 git clone https://github.com/jasongin/nvs --depth=1 "$NVS_HOME"
@@ -135,6 +124,6 @@ git clone https://github.com/jasongin/nvs --depth=1 "$NVS_HOME"
 nvs remote node https://npm.taobao.org/mirrors/node/
 
 
-
+echo "install sdkman"
 curl -s "https://get.sdkman.io" | bash
 sdk install java 8.0.382-zulu
