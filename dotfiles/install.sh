@@ -8,6 +8,10 @@ echo "installing homebrew"
 
 git -C "$(brew --repo)" remote set-url origin https://mirrors.cloud.tencent.com/homebrew/brew.git
 
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.bash_profile
+
+source ~/.bash_profile
+
 # Make sure we’re using the latest Homebrew.
 brew update
 
@@ -93,7 +97,6 @@ brew install wget
 brew install zopfli
 
 # Install dev tools
-brew install maven 
 brew install go 
 brew install orbstack
 brew install python3
@@ -125,4 +128,7 @@ nvs remote node https://npm.taobao.org/mirrors/node/
 
 echo "install sdkman"
 curl -s "https://get.sdkman.io" | bash
+
+echo "install java、maven"
 sdk install java 8.0.382-zulu
+sdk install maven

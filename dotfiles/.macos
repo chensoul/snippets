@@ -40,7 +40,7 @@ defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.5
 # Set sidebar icon size to medium
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
-# Always show scrollbars
+# 滚动时显示滚动条
 defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
 # Possible values: `WhenScrolling`, `Automatic` and `Always`
 
@@ -167,8 +167,8 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 1
 # Set language and text formats
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
 # `Inches`, `en_GB` with `en_US`, and `true` with `false`.
-defaults write NSGlobalDomain AppleLanguages -array "en" "nl"
-defaults write NSGlobalDomain AppleLocale -string "en_GB@currency=EUR"
+defaults write NSGlobalDomain AppleLanguages -array "zh-Hans" "en"
+defaults write NSGlobalDomain AppleLocale -string "zh_CN@currency=CNY"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
 
