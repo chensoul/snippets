@@ -98,6 +98,9 @@ brew install hugo
 brew install orbstack
 brew install python3
 brew install visual-studio-code 
+brew install maven
+brew tap homebrew/cask-versions
+brew install --cask zulu8
 
 echo "installing apps with --cask"
 brew install --cask google-chrome 
@@ -121,11 +124,3 @@ echo "install nvs"
 export NVS_HOME="$HOME/.nvs"
 git clone https://github.com/jasongin/nvs --depth=1 "$NVS_HOME"
 nvs remote node https://npm.taobao.org/mirrors/node/
-
-
-echo "install sdkman"
-curl -s "https://get.sdkman.io" | bash
-
-echo "install java、maven"
-sdk install java 8.0.382-zulu
-sdk install maven
