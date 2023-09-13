@@ -98,6 +98,7 @@ brew install zopfli
 
 # Install dev tools
 brew install go 
+brew install hugo 
 brew install orbstack
 brew install python3
 brew install visual-studio-code 
@@ -108,6 +109,7 @@ brew install --cask 1password
 brew install --cask iterm2 
 brew install --cask typora 
 brew install --cask postman 
+brew install --cask sogouinput
 brew install --cask switchhosts 
 brew install --cask tinypng4mac 
 brew install --cask tableplus 
