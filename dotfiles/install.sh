@@ -8,10 +8,6 @@ echo "installing homebrew"
 
 git -C "$(brew --repo)" remote set-url origin https://mirrors.cloud.tencent.com/homebrew/brew.git
 
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.bash_profile
-
-source ~/.bash_profile
-
 # Make sure we’re using the latest Homebrew.
 brew update
 
@@ -124,7 +120,6 @@ brew cleanup
 echo "install nvs"
 export NVS_HOME="$HOME/.nvs"
 git clone https://github.com/jasongin/nvs --depth=1 "$NVS_HOME"
-. "$NVS_HOME/nvs.sh" install
 nvs remote node https://npm.taobao.org/mirrors/node/
 
 
