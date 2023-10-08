@@ -55,6 +55,8 @@ target/
 *.xml.versionsBackup
 
 
-# python
+# Python stuff
+*.pyc
+VENV
 .env
 .venv

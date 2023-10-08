@@ -1,26 +1,30 @@
 # dotfiles
 
+## 克隆仓库
+
+```bash
+git clone https://github.com/chensoul/snippets.git && cd snippets/dotfiles
+```
+
+## 应用
+
+```bash
+sh setup/brew.sh
+sh setup/app.sh
+sh setup/zsh.sh
+sh setup/stuff.sh
+sh setup/osx.sh
+```
+
 ## 安装 dotfiles
 
 ```bash
-git clone https://github.com/chensoul/snippets.git && cd snippets/dotfiles && source bootstrap.sh
-```
-
-## Maocs 配置
-
-```bash
-./.macos
-```
-
-## 安装软件
-
-```bash
-sh install.sh
+source bootstrap.sh
 ```
 
 ## 额外设置
 
-~/.extra
+添加 ~/.extra，设置 gihub 用户和邮箱：
 
 ```bash
 # Git credentials

@@ -11,17 +11,6 @@ alias path='echo -e ${PATH//:/\\n}'
 alias ll="ls -l"
 alias la="ls -la"
 
-## git
-alias g="git";
-alias gs="git status";
-alias gp="git pull";
-alias gf="git fetch";
-alias gpush="git push";
-alias gd="git diff";
-alias ga="git add .";
-alias gcm="git commit -m";
-
-
 ## npm
 alias ni="npm install";
 alias nrs="npm run start -s --";
