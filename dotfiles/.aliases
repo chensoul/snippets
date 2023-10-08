@@ -12,6 +12,9 @@ alias ll="ls -l"
 alias la="ls -la"
 
 ## npm
+alias gs="git status";
+
+## npm
 alias ni="npm install";
 alias nrs="npm run start -s --";
 alias nrb="npm run build -s --";
