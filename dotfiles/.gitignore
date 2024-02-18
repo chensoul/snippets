@@ -4,59 +4,29 @@
 # VSCode
 .vscode/
 
-# WebStorm
+# IntelliJ IDEA
 .idea/
 *.iws
 *.iml
 *.ipr
 
-# npm
-npm-debug.log
-
-# yarn
-yarn-error.log
-
-# VIM
-*.un~
-Session.vim
-.netrwhist
-*~
-*.swp
-.lvimrc
-
-# VS Code
-.vscode/
-# localhistory
-.history
-
-# PayPal project specific stuff
-.nvmrc
-.agignore
-
-# Over-arching stuff
-*.ignored/
-*.ignored.*
-
 # git
 *.patch
 
-# eslint
-.eslintcache
-
-
-# custom
-logs
-*.log
-
 # java
-.flattened-pom.xml
 target/
 !.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 *.xml.versionsBackup
-
+.flattened-pom.xml
 
 # Python stuff
 *.pyc
 VENV
 .env
 .venv
+
+# custom
+logs
+*.log

@@ -1,79 +1,29 @@
 [color]
 	ui = auto
 
-[color "diff"]
-	meta = blue
-	frag = white
-	old = red bold
-	new = green bold
-
-[core]
-	editor = vim
-	pager = delta
-	autocrlf = false
-	safecrlf = false
-	mergeoptions = --no-edit
-	excludesfile = ~/.gitignore
-	quotepath = false
-	# Enable parallel index preload for operations like git diff
-	preloadindex = true
-
-[color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = green
-
-[color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
-
 [alias]
-	# Simple shortcuts
-	# List aliases.
 	aliases = config --get-regexp alias
-	a = add
-	ua = reset HEAD
-	c = commit
-	ca = commit -a
-	cm = commit -m
-	cam = commit -am
-	cne = commit --no-edit
-	# Amend the currently staged files to the latest commit.
 	amend = commit --amend --reuse-message=HEAD
-	co = checkout
-	s = status -sb
-	d = diff
-	cp = cherry-pick
 	# Sharable diff with disabled syntax highlighting and +/- marks
-	patch = !git --no-pager diff --no-color
+    patch = !git --no-pager diff --no-color
 	# Merge fresh master into the current branch
 	mmm = !git fetch origin master && git merge origin/master --no-edit
-	# Compact and readable log
-	l = log --graph --pretty=format:'%C(magenta)%h%C(blue)%d%Creset %s %C(blue bold)- %an, %ar%Creset'
 	# Log with list of changed files for each commit
 	ll = log --stat --abbrev-commit
 	# List of my own commits
 	my = !git log --branches=* --no-merges --pretty=format:'%C(reset)%C(bold)%cd %C(reset)%C(white)%s  %C(reset)%h' --date=short --author=\"$(git config user.name)\"
-	tags = tag -l
 	# List of branches ordered by last change
 	branches = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:bold)%(refname:short)%(color:reset)\t%(committerdate:relative)'
-	remotes = remote --verbose
 	# List of files with merge conflicts
 	wtf = diff --name-only --diff-filter=U
 	# Rebase: add changes and continue
 	cont = !git add . && git rebase --continue
-	# Rebase: skip a rebase step
 	skip = rebase --skip
-	# Rebase: abort
 	abort = rebase --abort
 	# Cancel local commits in the branch: git fuck master
 	fuck = "!f() { git reset --hard origin/$1; }; f"
 
-	# List contributors with number of commits.
 	contributors = shortlog --summary --numbered
-
-	# Show the user email for the current repository.
 	whoami = config user.email
 
 [push]
@@ -93,17 +43,16 @@
 [merge]
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
+	conflictstyle = diff3
 [delta]
 	navigate = true
 	light = false
-[merge]
-	conflictstyle = diff3
 [diff]
 	colorMoved = default
 
 [init]
 	defaultBranch = main
-	
+
 # URL shorthands
 [url "git@github.com:"]
 	insteadOf = "gh:"
@@ -120,3 +69,7 @@
 
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
+
+[user]
+	name = chensoul
+	email = ichensoul@gmail.com

@@ -11,7 +11,6 @@ git clone https://github.com/chensoul/snippets.git && cd snippets/dotfiles
 ```bash
 sh setup/brew.sh
 sh setup/app.sh
-sh setup/zsh.sh
 sh setup/stuff.sh
 sh setup/osx.sh
 ```
@@ -32,7 +31,7 @@ source bootstrap.sh
 GIT_AUTHOR_NAME="chensoul"
 GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 git config --global user.name "$GIT_AUTHOR_NAME"
-GIT_AUTHOR_EMAIL="chensoul.eth@gmail.com"
+GIT_AUTHOR_EMAIL="ichensoul@gmail.com"
 GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
 ```

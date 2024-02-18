@@ -8,8 +8,8 @@ Sane OSX defaults. Based on [~/.osx](https://github.com/mathiasbynens/dotfiles/b
 
 ### stuff
 
-Installs Git, [git-friendly](https://github.com/jamiew/git-friendly), Node.js, etc.
+Install Git, [git-friendly](https://github.com/jamiew/git-friendly), Node.js, Go, Java, Docker etc.
 
-### zsh
+### vscode
 
-Installs zsh, registers zsh as the default shell.
+Install vscode with plugins.
