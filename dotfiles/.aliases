@@ -27,6 +27,9 @@ alias dcps="docker compose ps"
 alias dps='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Networks}}\t{{.State}}\t{{.CreatedAt}}" '
 
 # Git Stuff
+alias git_current_branch="git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||'"
+
+
 alias g='git'
 alias ga='git add'
 alias gaa='git add .' #将所有变更添加到暂存区
