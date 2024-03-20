@@ -1,31 +1,43 @@
 #!/usr/bin/env bash
 
-# common
+alias my='sudo chown -R `id -u`'
+
+alias c='clear'
+alias h='history'
+alias s='source'
+
+# LS Stuff
+alias l='ls'
+alias ls='ls -F --color=always'
+alias ll='ls -la'
+alias ld='ls -d */'
+alias la='ls -CA'
+
+# CD Stuff
+alias .='cd && ld'
+alias ..='cd .. && ld'
+alias ...='cd ../.. && ld'
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias dw="cd ~/workspace"
-alias week='date +%V'
-# Print each PATH entry on a separate line
-alias path='echo -e ${PATH//:/\\n}'
 
-alias ll="ls -l"
-alias la="ls -la"
+# docker
+alias dc="docker compose"
+alias dcps="docker compose ps"
+alias dps='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Networks}}\t{{.State}}\t{{.CreatedAt}}" '
 
-
-#git
+# Git Stuff
 alias g='git'
 alias ga='git add'
-alias gaa='git add --all' #将所有变更添加到暂存区
-alias gapa='git add --patch' #交互式的选中变更添加到暂存区
+alias gaa='git add .' #将所有变更添加到暂存区
 
 alias gb='git branch' #列出当前仓库中所有的分支，并在当前分支前面标记一个星号
 alias gba='git branch -a' #列出所有的本地分支和远程分支
 alias gbd='git branch -d' #命令用于删除指定的本地分支
-alias gbD='git branch -d --force' # 命令用于强制删除指定的本地分支
 alias gbm='git branch -m' #重命名分支
 alias gbnm='git branch --no-merged' #列出所有未合并到当前分支的分支
 alias gbr='git branch --remote' #列出远程分支
-alias ggsup='git branch --set-upstream-to=origin/$(git_current_branch)' #将当前分支与远程仓库的同名分支建立起追踪关系
+alias gbsup='git branch --set-upstream-to=origin/$(git_current_branch)' #将当前分支与远程仓库的同名分支建立起追踪关系
 
 #在本地和远程仓库中重命名 Git 分支
 function grename() {
@@ -42,24 +54,14 @@ function grename() {
   fi
 }
 
-alias gc='git commit --verbose' #提交当前暂存区中的变更，并显示详细的提交信息
-alias gc!='git commit --verbose --amend'#修改最近一次的提交，并在提交过程中显示详细的变更信息
-alias gcmsg='git commit -m' #提交当前暂存区中的变更并提供提交信息
-
+alias gc='git commit -m'
 alias gco='git checkout'
-alias gcor='git checkout --recurse-submodules' #递归地切换到主仓库以及所有子模块的相应提交或分支
 alias gcb='git checkout -b' #创建一个新分支并切换到该分支
 alias gcB='git checkout -B' #创建一个新分支并强制切换到该分支
-alias gcd='git checkout $(git_develop_branch)'
-alias gcm='git checkout $(git_main_branch)'
-
 alias gcl='git clone --recurse-submodules' #克隆代码
-
-alias gcf='git config --list'
 
 alias gf='git fetch'
 alias gfo='git fetch origin'
-
 
 alias gm='git merge'
 alias gma='git merge --abort'
@@ -67,23 +69,24 @@ alias gms="git merge --squash"
 alias gmom='git merge origin/$(git_main_branch)'
 alias gmum='git merge upstream/$(git_main_branch)'
 
-#拉取代码
-alias gl='git pull'
-alias gpr='git pull --rebase' #拉取远程仓库的最新提交，并将本地提交应用到最新提交
-alias gpra='git pull --rebase --autostash' #拉取远程仓库的最新提交，并将本地提交应用到最新提交之上，同时自动保存和恢复未提交的更改
-alias ggpull='git pull origin "$(git_current_branch)"'
+alias glog='git log --pretty="%C(Yellow)%h %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s" -7 --date=short'
 
+#拉取代码
+alias gp='git pull'
+alias gpr='git pull --rebase' #拉取远程仓库的最新提交，并将本地提交应用到最新提交
+alias gpu="git pull upstream"
+alias gpo="git pull origin"
+alias gpoc='git pull origin "$(git_current_branch)"'
+alias gpum="git pull upstream main"
+alias gpom="git pull origin main"
+#提交代码
+alias ggpush='git push origin "$(git_current_branch)"'
 
 #从远程仓库拉取最新提交，并使用 rebase 的方式将本地提交应用到拉取的提交之
 function ggu() {
   [[ "$#" != 1 ]] && local b="$(git_current_branch)"
   git pull --rebase origin "${b:=$1}"
 }
-
-#提交代码
-alias gp='git push'
-alias gpd='git push --dry-run'
-alias ggpush='git push origin "$(git_current_branch)"'
 
 #拉取代码并提交
 function ggpnp() {
@@ -104,7 +107,6 @@ alias grbd='git rebase $(git_develop_branch)'
 alias grbm='git rebase $(git_main_branch)'
 alias grbom='git rebase origin/$(git_main_branch)'
 
-
 alias gr='git remote'
 alias gra='git remote add'
 alias grrm='git remote remove'
@@ -113,16 +115,56 @@ alias grset='git remote set-url'
 alias grup='git remote update'
 
 alias gs='git status'
+alias gst='git status'
 
+alias pullcode='for dir in */; do if [[ -d "$dir/.git" ]]; then echo "Entering directory: $dir"; cd "$dir"; git pull; cd ..; fi; done'
 
+# Recursively delete `.DS_Store` files
+alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+
+alias idea="/Applications/IntelliJ\ IDEA\ 2024.1\ EAP.app/Contents/MacOS/idea"
+
+# Create a new directory and enter it
+function mkd() {
+	mkdir -p "$@" && cd "$_";
+}
+
+# Determine size of a file or total size of a directory
+function fs() {
+	if du -b /dev/null > /dev/null 2>&1; then
+		local arg=-sbh;
+	else
+		local arg=-sh;
+	fi
+	if [[ -n "$@" ]]; then
+		du $arg -- "$@";
+	else
+		du $arg .[^.]* ./*;
+	fi;
+}
+
+function killport() { lsof -i tcp:"$*" | awk 'NR!=1 {print $2}' | xargs kill -9 ;}
+
+# `o` with no arguments opens the current directory, otherwise opens the given location
+function o() {
+	if [ $# -eq 0 ]; then
+		open .;
+	else
+		open "$@";
+	fi;
+}
+
+alias week='date +%V'
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en0"
+alias iplocal="ipconfig getifaddr en0"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'  |sort -nr|grep -v '::' "
 
 # Show active network interfaces
-#alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
+alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
 
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; '
@@ -148,12 +190,6 @@ command -v md5sum > /dev/null || alias md5sum="md5"
 
 # macOS has no `sha1sum`, so use `shasum` as a fallback
 command -v sha1sum > /dev/null || alias sha1sum="shasum"
-
-# Trim new lines and copy to clipboard
-alias c="tr -d '\n' | pbcopy"
-
-# Recursively delete `.DS_Store` files
-alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 
 # Empty the Trash on all mounted volumes and the main HDD.
 # Also, clear Apple’s System Logs to improve shell startup speed.
@@ -186,5 +222,3 @@ alias pumpitup="osascript -e 'set volume output volume 100'"
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec ${SHELL} -l"
-
-

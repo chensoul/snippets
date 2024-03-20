@@ -6,19 +6,19 @@
 git clone https://github.com/chensoul/snippets.git && cd snippets/dotfiles
 ```
 
-## 应用
+## 安装 dotfiles
+
+```bash
+sh bootstrap.sh
+```
+
+## 安装应用
 
 ```bash
 sh setup/brew.sh
 sh setup/app.sh
 sh setup/stuff.sh
 sh setup/osx.sh
-```
-
-## 安装 dotfiles
-
-```bash
-source bootstrap.sh
 ```
 
 ## 额外设置
