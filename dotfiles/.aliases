@@ -81,7 +81,7 @@ alias gpoc='git pull origin "$(git_current_branch)"'
 alias gpum="git pull upstream main"
 alias gpom="git pull origin main"
 #提交代码
-alias gpush='git push origin "$(git_current_branch)"'
+alias gg='git push origin "$(git_current_branch)"'
 
 #从远程仓库拉取最新提交，并使用 rebase 的方式将本地提交应用到拉取的提交之
 function ggu() {
