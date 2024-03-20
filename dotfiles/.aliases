@@ -66,8 +66,6 @@ alias gfo='git fetch origin'
 alias gm='git merge'
 alias gma='git merge --abort'
 alias gms="git merge --squash"
-alias gmom='git merge origin/$(git_main_branch)'
-alias gmum='git merge upstream/$(git_main_branch)'
 
 alias glog='git log --pretty="%C(Yellow)%h %C(reset)%ad (%C(Green)%cr%C(reset))%x09 %C(Cyan)%an: %C(reset)%s" -7 --date=short'
 
@@ -103,9 +101,6 @@ alias grbc='git rebase --continue'
 alias grbi='git rebase --interactive'
 alias grbo='git rebase --onto'
 alias grbs='git rebase --skip'
-alias grbd='git rebase $(git_develop_branch)'
-alias grbm='git rebase $(git_main_branch)'
-alias grbom='git rebase origin/$(git_main_branch)'
 
 alias gr='git remote'
 alias gra='git remote add'
