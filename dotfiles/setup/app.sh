@@ -14,6 +14,8 @@ echo "installing apps with --cask"
 
 brew tap homebrew/cask-versions
 
+brew install --cask applite
+brew install --cask docker
 brew install --cask 1password
 brew install --cask google-chrome 
 brew install --cask iterm2 
@@ -25,4 +27,8 @@ brew install --cask tinypng4mac
 brew install --cask tableplus 
 brew install --cask feishu 
 brew install --cask wechat
+brew install --cask zulu8
+
 brew install warp
+brew install bruno
+brew install orbstack

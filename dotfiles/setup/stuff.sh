@@ -59,18 +59,12 @@ brew install vim
 brew install wget
 
 # Install dev tools
-
 brew install go 
 brew install hugo 
-
 brew install python3
-
-brew install --cask zulu8
 brew install maven
 brew install spring-boot 
 
-brew install --cask docker
-brew install orbstack
 
 # Remove outdated versions from the cellar
 brew cleanup
