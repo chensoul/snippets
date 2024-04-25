@@ -1,34 +1,52 @@
 # Installs GUI apps
 # https://formulae.brew.sh/cask/
 
-# Common stuff
-RED="$(tput setaf 1)"
-UNDERLINE="$(tput sgr 0 1)"
-NOCOLOR="$(tput sgr0)"
-function error() { echo -e "$UNDERLINE$RED$1$NOCOLOR\n"; }
+
+# Install XCode command line tools, and accept its license
+xcode-select --install
+xcodebuild -license
 
 # Check that Homebrew is installed
 command -v brew >/dev/null 2>&1 || { error "Homebrew not installed: https://brew.sh/"; exit 1; }
 
 echo "installing apps with --cask"
-
 brew tap homebrew/cask-versions
+brew install --cask visual-studio-code
 
-brew install --cask applite
-brew install --cask docker
-brew install --cask 1password
-brew install --cask google-chrome 
-brew install --cask iterm2 
-brew install --cask typora 
-brew install --cask postman 
-brew install --cask sogouinput
-brew install --cask switchhosts 
-brew install --cask tinypng4mac 
-brew install --cask tableplus 
-brew install --cask feishu 
-brew install --cask wechat
-brew install --cask zulu8
-
+# soft app
+brew install baidunetdisk 
+brew install 1password
+brew install google-chrome 
+brew install typora 
+brew install sogouinput
+brew install switchhosts 
+brew install tinypng4mac 
+brew install tableplus 
+brew install feishu 
+brew install wechat
 brew install warp
-brew install bruno
+
+# cli command
+brew install bash
+brew install bash-completion
+brew install ffmpeg
+brew install jq
+brew install ssh-copy-id
+brew install tree
+brew install vim
+brew install wget
+
+
+# dev tools
+brew tap spring-io/tap && brew install spring-boot
+brew install zulu8 zulu21
+brew install maven
+brew install gradle
 brew install orbstack
+brew install node
+brew install nvs
+brew install go 
+brew install hugo 
+brew install python3
+
+brew cleanup

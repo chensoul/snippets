@@ -20,6 +20,6 @@ export JAVA_HOME=`/usr/libexec/java_home -v 17`
 export PATH="$JAVA_HOME/bin:$PATH"
 
 export NVS_HOME="$HOME/.nvs"
-[ -s "$NVS_HOME/nvs.sh" ] && . "$NVS_HOME/nvs.sh" 
+[ -s "/opt/homebrew/Caskroom/nvs/1.7.1/nvs-1.7.1/nvs.sh" ] && . "/opt/homebrew/Caskroom/nvs/1.7.1/nvs-1.7.1/nvs.sh"
 
 
