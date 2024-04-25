@@ -13,6 +13,8 @@ echo "installing apps with --cask"
 brew tap homebrew/cask-versions
 brew install --cask visual-studio-code
 
+brew install --cask intellij-idea
+
 # soft app
 brew install baidunetdisk 
 brew install 1password
@@ -39,7 +41,7 @@ brew install wget
 
 # dev tools
 brew tap spring-io/tap && brew install spring-boot
-brew install zulu8 zulu21
+brew install zulu8 zulu17 zulu21
 brew install maven
 brew install gradle
 brew install orbstack

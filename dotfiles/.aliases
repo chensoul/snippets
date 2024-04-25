@@ -182,7 +182,7 @@ alias reload="exec ${SHELL} -l"
 #   cleanDS:  Recursively delete .DS_Store files
 #   -------------------------------------------------------------------
 alias cleanDS="find . -type f -name '*.DS_Store' -ls -delete"
-alias cleanCodeTrash="find . \( -name "target" -o -name "logs" -o -name "build"  -o -name "node_modules" \) -type d -exec rm -rf {} \;"
+alias cleanCodeTrash="find . \( -name "target" -o -name "logs" -o -name "build"  -o -name "node_modules" \) -type d  -ls -delete"
 
 # Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
