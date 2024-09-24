@@ -12,7 +12,6 @@ command -v brew >/dev/null 2>&1 || { error "Homebrew not installed: https://brew
 echo "installing apps with --cask"
 brew tap homebrew/cask-versions
 brew install --cask visual-studio-code
-
 brew install --cask intellij-idea
 
 # soft app
@@ -37,7 +36,7 @@ brew install ssh-copy-id
 brew install tree
 brew install vim
 brew install wget
-
+brew install gpg
 
 # dev tools
 brew tap spring-io/tap && brew install spring-boot
