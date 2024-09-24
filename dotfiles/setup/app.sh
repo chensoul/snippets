@@ -11,19 +11,13 @@ command -v brew >/dev/null 2>&1 || { error "Homebrew not installed: https://brew
 
 echo "installing apps with --cask"
 brew tap homebrew/cask-versions
-brew install --cask visual-studio-code
-
-brew install --cask intellij-idea
 
 # soft app
 brew install baidunetdisk 
 brew install 1password
 brew install google-chrome 
 brew install typora 
-brew install sogouinput
 brew install switchhosts 
-brew install tinypng4mac 
-brew install tableplus 
 brew install feishu 
 brew install wechat
 brew install warp
@@ -40,8 +34,10 @@ brew install wget
 
 
 # dev tools
+brew install --cask visual-studio-code
+brew install --cask intellij-idea
+brew install --cask zulu@8 zulu@17 zulu@21
 brew tap spring-io/tap && brew install spring-boot
-brew install zulu8 zulu17 zulu21
 brew install maven
 brew install gradle
 brew install orbstack
