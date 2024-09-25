@@ -1,3 +1,5 @@
+# inspired by chris sev @chris__sev https://gist.github.com/chris-sev/45a92f4356eaf4d68519d396ef42dd99
+
 #!/bin/bash
 set -euo pipefail
 
@@ -5,20 +7,12 @@ set -euo pipefail
 echo "Setting up your Mac..."
 sudo -v
 
-
-# Install XCode command line tools, and accept its license
-echo "Installing XCode"
-xcode-select --install
-xcodebuild -license
-
 # Homebrew - Installation
 echo "Installing Homebrew"
 
 if test ! $(which brew); then
   export HOMEBREW_CORE_GIT_REMOTE=https://mirrors.ustc.edu.cn/homebrew-core.git
   /bin/bash -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/ineo6/homebrew-install/install.sh)"
-  git -C "$(brew --repo)" remote set-url origin https://mirrors.cloud.tencent.com/homebrew/brew.git
-  brew update
 fi
 
 # Install Homebrew Packages
@@ -42,7 +36,6 @@ homebrew_packages=(
     "tree"
     "typora"
     "maven"
-    "node"
     "nvs"
     "wget"
     "wechat"
@@ -69,13 +62,7 @@ for homebrew_cask_package in "${homebrew_cask_packages[@]}"; do
   brew install --cask "$homebrew_cask_package"
 done
 
-brew upgrade
 brew cleanup
-
-# other apps
-# https://herd.laravel.com
-# https://lo.cafe/notchnook
-# https://stuntsoftware.com/reflex/ - route play/pause to spotify
 
 # apps in setapp (check your setapps favorites list)
 # bartender
@@ -93,11 +80,15 @@ brew cleanup
 
 touch "$HOME/.zshrc"
 
-echo "/usr/libexec/java_home -v 21 --exec java -version" >> "$HOME/.zshrc"
+echo "/usr/libexec/java_home -v 21 --exec java -version 2>/dev/null" >> "$HOME/.zshrc"
 
 # aliases	
 cp .aliases ~/.aliases
 echo ". ~/.aliases" >> "$HOME/.zshrc"
+
+# setting
+scutil --set ComputerName "chensoul-mac"
+systemsetup -settimezone "Asia/Shanghai" > /dev/null
 
 # configure git
 git config --global user.name "chensoul"
