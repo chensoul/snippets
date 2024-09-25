@@ -1,7 +1,0 @@
-192.168.1.107 cocktail-auth
-192.168.1.107 cocktail-gateway
-192.168.1.107 cocktail-register
-192.168.1.107 cocktail-mq
-
-192.168.2.214 cocktail-mysql
-192.168.2.214 cocktail-redis
