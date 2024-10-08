@@ -50,7 +50,6 @@ echo "Installing Homebrew cask packages"
 homebrew_cask_packages=(
   "arc"
   "intellij-idea"
-  "setapp"
   "visual-studio-code"
   "warp"
   "zulu@8"
