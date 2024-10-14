@@ -1,0 +1,270 @@
+#!/usr/bin/env bash
+
+#  ---------------------------------------------------------------------------
+#
+#  Description:  This file holds all my aliases
+#
+#  Sections:
+#  1.  Make Terminal Better (remapping defaults and adding functionality)
+#  2.  File and Folder Management
+#  3.  Searching
+#  4.  Process Management
+#  5.  Networking
+#  6.  System Operations & Information
+#  7.  Development
+#  8.  Git
+#
+#  ---------------------------------------------------------------------------
+
+
+#   -----------------------------
+#   1.  MAKE TERMINAL BETTER
+#   -----------------------------
+
+alias c='clear'
+alias h='history'
+alias s='source'
+alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
+alias my='sudo chown -R `id -u`'
+alias less='less -FSRXc'                    # Preferred 'less' implementation
+alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
+
+
+#   -------------------------------
+#   2.  FILE AND FOLDER MANAGEMENT
+#   -------------------------------
+
+alias mv='mv -iv'                           # Preferred 'mv' implementation
+alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
+mkd() { mkdir -p "$@" && cd "$_"; }         # Create a new directory and enter it
+
+alias l='ls'
+alias ls='ls -F --color=always'
+alias ll='ls -FGlAhp'                       # Preferred 'ls' implementation
+
+alias ..='cd ../.. && ld'
+alias ...='cd ../../../ && ld'
+alias ....='cd ../../../../ && ld'
+
+alias ~="cd ~"                              # ~:            Go Home
+alias dl="cd ~/Downloads"
+alias dt="cd ~/Desktop"
+alias dc="cd ~/codes"
+
+zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP archive of a folder
+alias numFiles='echo $(ls -1 | wc -l)'      # numFiles:     Count of non-hidden files in current dir
+
+#   cdf:  'Cd's to frontmost window of MacOS Finder
+#   ------------------------------------------------------
+cdf () {
+    currFolderPath=$( /usr/bin/osascript <<EOT
+        tell application "Finder"
+            try
+        set currFolder to (folder of the front window as alias)
+            on error
+        set currFolder to (path to desktop folder as alias)
+            end try
+            POSIX path of currFolder
+        end tell
+EOT
+    )
+    echo "cd to \"$currFolderPath\""
+    cd "$currFolderPath"
+}
+
+#   extract:  Extract most know archives with one command
+#   ---------------------------------------------------------
+extract () {
+    if [ -f $1 ] ; then
+      case $1 in
+        *.tar.bz2)   tar xjf $1     ;;
+        *.tar.gz)    tar xzf $1     ;;
+        *.bz2)       bunzip2 $1     ;;
+        *.rar)       unrar e $1     ;;
+        *.gz)        gunzip $1      ;;
+        *.tar)       tar xf $1      ;;
+        *.tbz2)      tar xjf $1     ;;
+        *.tgz)       tar xzf $1     ;;
+        *.zip)       unzip $1       ;;
+        *.Z)         uncompress $1  ;;
+        *.7z)        7z x $1        ;;
+        *)     echo "'$1' cannot be extracted via extract()" ;;
+          esac
+      else
+          echo "'$1' is not a valid file"
+      fi
+}
+
+#   fs:  Determine size of a file or total size of a directory
+#   ---------------------------------------------------------
+function fs() {
+	if du -b /dev/null > /dev/null 2>&1; then
+		local arg=-sbh;
+	else
+		local arg=-sh;
+	fi
+	if [[ -n "$@" ]]; then
+		du $arg -- "$@";
+	else
+		du $arg .[^.]* ./*;
+	fi;
+}
+
+
+#   ---------------------------
+#   3.  SEARCHING
+#   ---------------------------
+
+alias qfind="find . -name "                 # qfind:    Quickly search for file
+ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
+ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
+ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
+
+#   spotlight: Search for a file using MacOS Spotlight's metadata
+#   -----------------------------------------------------------
+spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; }
+
+
+#   ---------------------------
+#   4.  PROCESS MANAGEMENT
+#   ---------------------------
+
+function killport() { lsof -i tcp:"$*" | awk 'NR!=1 {print $2}' | xargs kill -9 ;}
+
+#   memHogsTop, memHogsPs:  Find memory hogs
+#   -----------------------------------------------------
+alias memHogsTop='top -l 1 -o rsize | head -20'
+alias memHogsPs='ps wwaxm -o pid,stat,vsize,rss,time,command | head -10'
+
+#   cpuHogs:  Find CPU hogs
+#   -----------------------------------------------------
+alias cpu_hogs='ps wwaxr -o pid,stat,%cpu,time,command | head -10'
+
+#   ttop:  Recommended 'top' invocation to minimize resources
+#   ------------------------------------------------------------
+#       Taken from this macosxhints article
+#       http://www.macosxhints.com/article.php?story=20060816123853639
+#   ------------------------------------------------------------
+alias ttop="top -R -F -s 10 -o rsize"
+
+#   my_ps: List processes owned by my user:
+#   ------------------------------------------------------------
+my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
+
+
+#   ---------------------------
+#   5.  NETWORKING
+#   ---------------------------
+
+alias myip="dig +short myip.opendns.com @resolver1.opendns.com" # myip:         Public facing IP Address
+alias localip="ipconfig getifaddr en0"
+alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'" # Show active network interfaces
+alias netCons='lsof -i'                             # netCons:      Show all open TCP/IP sockets
+alias flushDNS="dscacheutil -flushcache && killall -HUP mDNSResponder" # flushDNS:     Flush out the DNS Cache
+alias lsock='sudo /usr/sbin/lsof -i -P'             # lsock:        Display open sockets
+alias lsockU='sudo /usr/sbin/lsof -nP | grep UDP'   # lsockU:       Display only open UDP sockets
+alias lsockT='sudo /usr/sbin/lsof -nP | grep TCP'   # lsockT:       Display only open TCP sockets
+alias ipInfo0='ipconfig getpacket en0'              # ipInfo0:      Get info on connections for en0
+alias ipInfo1='ipconfig getpacket en1'              # ipInfo1:      Get info on connections for en1
+alias openPorts='sudo lsof -i | grep LISTEN'        # openPorts:    All listening connections
+
+
+#   ---------------------------------------
+#   6  SYSTEMS OPERATIONS & INFORMATION
+#   ---------------------------------------
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec ${SHELL} -l"
+
+#   cleanDS:  Recursively delete .DS_Store files
+#   -------------------------------------------------------------------
+alias cleanDS="find . -type f -name '*.DS_Store' -ls -delete"
+alias cleanCodeTrash="find . \( -name "target" -o -name "logs" -o -name "build"  -o -name "node_modules" \) -type d  -ls -delete"
+
+# Show/hide hidden files in Finder
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Hide/show all desktop icons (useful when presenting)
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+# Disable/Enable Spotlight
+alias spotoff="sudo mdutil -a -i off"
+alias spoton="sudo mdutil -a -i on"
+
+#   cleanLS:  Clean up LaunchServices to remove duplicates in the "Open With" menu
+#   -----------------------------------------------------------------------------------
+alias cleanLS="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+
+alias cleanTrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
+
+# Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; '
+
+# Google Chrome
+alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+alias canary='/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'
+# [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
+alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+# Canonical hex dump; some systems have this symlinked
+command -v hd > /dev/null || alias hd="hexdump -C"
+# macOS has no `md5sum`, so use `md5` as a fallback
+command -v md5sum > /dev/null || alias md5sum="md5"
+# macOS has no `sha1sum`, so use `shasum` as a fallback
+command -v sha1sum > /dev/null || alias sha1sum="shasum"
+
+#   ---------------------------------------
+#   7.  DEVELOPMENT
+#   ---------------------------------------
+
+# jdk
+alias j23="export JAVA_HOME=`/usr/libexec/java_home -v 23`; java -version"
+alias j21="export JAVA_HOME=`/usr/libexec/java_home -v 21`; java -version"
+alias j17="export JAVA_HOME=`/usr/libexec/java_home -v 17`; java -version"
+alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8`; java -version"
+
+# docker
+alias dc="docker compose"
+alias docker-rm-containers-exited="docker rm $(docker ps -aqf status=exited)"
+alias docker-rm-volumes-dangling="docker volume rm $(docker volume ls -qf dangling=true)"
+alias dockerps='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Networks}}\t{{.State}}\t{{.CreatedAt}}" '
+
+alias idea="/Applications/IntelliJ\ IDEA\ 2024.2\ EAP.app/Contents/MacOS/idea"
+alias pullcode='for dir in */; do if [[ -d "$dir/.git" ]]; then echo "Entering directory: $dir"; cd "$dir"; git pull; cd ..; fi; done'
+
+# httpHeaders:      Grabs headers from web page
+httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grabs headers from web page
+
+#   httpDebug:  Download a web page and show info on what took time
+#   -------------------------------------------------------------------
+httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; }
+
+
+#   ---------------------------
+#   8.  Git
+#   ---------------------------
+
+alias git_current_branch="git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||'"
+
+#在本地和远程仓库中重命名 Git 分支
+function grename() {
+  if [[ -z "$1" || -z "$2" ]]; then
+    echo "Usage: $0 old_branch new_branch"
+    return 1
+  fi
+
+  # Rename branch locally
+  git branch -m "$1" "$2"
+  # Rename branch in origin remote
+  if git push origin :"$1"; then
+    git push --set-upstream origin "$2"
+  fi
+}
+
+alias gst='git status'
+alias gcm='git commit -m'
+alias gcl='git clone'
+alias gp='git pull'
+alias gg='git push origin "$(git_current_branch)"'

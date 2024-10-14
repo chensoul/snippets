@@ -1,0 +1,31 @@
+[core]
+  editor = vim
+  pager = cat
+  autocrlf = input
+
+[user]
+    name = hensoul
+    email = ichensoul@gmail.com
+
+[alias]
+    st = status
+    di = diff
+    co = checkout
+    cl = clone
+    sw = switch
+    cp = cherry-pick
+    br = branch
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    lol = log --graph --decorate --oneline
+    lola = log --graph --decorate --oneline --all
+    rbi = rebase --interactive --autosquash --autostash
+    unstage = reset HEAD
+
+[rebase]
+    autosquash = true
+[init]
+	defaultBranch = main
+[pull]
+	ff = only
+[rerere]
+	enabled = true
