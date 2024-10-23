@@ -8,11 +8,12 @@ echo "Setting up your Mac..."
 sudo -v
 
 # Homebrew - Installation
-echo "Installing Homebrew"
-
-if test ! $(which brew); then
-  export HOMEBREW_CORE_GIT_REMOTE=https://mirrors.ustc.edu.cn/homebrew-core.git
-  /bin/bash -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/ineo6/homebrew-install/install.sh)"
+if [[ $(command -v brew) == "" ]]; then
+    echo "Installing Homebrew"
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+else
+    echo "Updating Homebrew"
+    brew update
 fi
 
 # Homebrew - Installing Softwares
@@ -20,9 +21,12 @@ echo "Installing Softwares"
 brew bundle
 
 # copy files
-cp .aliases ~/
-cp .bashrc ~/
-cp .gitconfig ~/
+files=".gitconfig .aliases .bashrc functions.sh"
+# create symlinks (will overwrite old dotfiles)
+for file in ${files}; do
+    echo "Creating symlink to $file in home directory."
+    #ln -sf ${dotfiledir}/${file} ${homedir}/${file}
+done
 
 # setting
 scutil --set ComputerName "chensoul-mac"

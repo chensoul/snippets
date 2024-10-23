@@ -1,0 +1,91 @@
+#export GPG_TTY=$(tty)
+
+
+alias c='clear'
+alias h='history'
+alias f='open -a Finder ./'                 
+alias p='cd ~/chensoul/Projects/'
+alias s='source'
+alias my='sudo chown -R `id -u`'
+alias path='echo -e ${PATH//:/\\n}'         
+
+alias .='pwd'
+alias ..='cd ../..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias ~="cd ~"                             
+alias dl="cd ~/Downloads"
+alias dt="cd ~/Desktop"
+
+
+alias publicip="dig +short myip.opendns.com @resolver1.opendns.com" 
+alias localip="ipconfig getifaddr en0"
+alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'" 
+alias delTrash="find . \( -name target -o -name .DS_Store -o -name build  -o -name node_modules \) -type d  -ls -delete"
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup;'
+alias pullcode='for dir in */; do if [[ -d "$dir/.git" ]]; then echo "Entering directory: $dir"; cd "$dir"; git pull; cd ..; fi; done'
+alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+alias listnm="find . -name "node_modules" -type d -prune -print | xargs du -chs"
+
+### Git
+alias git_current_branch="git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||'"
+alias gaa='git add -A'
+alias gs='git status'
+alias gst='git status'
+alias gcm='git commit -m'
+alias gcl='git clone'
+alias gp='git pull'
+alias gg='git push origin "$(git_current_branch)"'
+
+
+### DEVELOPMENT
+alias mw='./mvnw'
+alias mwcv='./mvnw clean verify'
+
+alias j23="export JAVA_HOME=`/usr/libexec/java_home -v 23`; java -version"
+alias j21="export JAVA_HOME=`/usr/libexec/java_home -v 21`; java -version"
+alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8`; java -version"
+
+alias yi='yarn install'
+alias ys='yarn start'
+
+alias d="docker"
+alias dc="docker compose"
+alias dclean="docker ps -aq --no-trunc -f status=exited | xargs docker rm"
+alias dstop="docker ps -aq | xargs docker stop"
+# delete docker images by created date
+#docker image prune -a --force --filter "until=7h"
+
+#search docker images by name
+#docker images | awk '/^spring/ {print $0}'
+
+#delete docker images by name
+#docker images | awk '/^chensoul/ {print $3}' | xargs docker rmi
+
+#k8s
+alias k='kubectl'
+alias kget='k get all'
+alias klogs='k logs'
+
+alias mk='minikube'
+alias mkdb='mk dashboard'
+
+### function
+function mkd() { mkdir -p "$@" && cd "$_"; }     
+
+function killport() { lsof -i tcp:"$*" | awk 'NR!=1 {print $2}' | xargs kill -9 ;}
+
+#在本地和远程仓库中重命名 Git 分支
+function grename() {
+  if [[ -z "$1" || -z "$2" ]]; then
+    echo "Usage: $0 old_branch new_branch"
+    return 1
+  fi
+
+  # Rename branch locally
+  git branch -m "$1" "$2"
+  # Rename branch in origin remote
+  if git push origin :"$1"; then
+    git push --set-upstream origin "$2"
+  fi
+}
