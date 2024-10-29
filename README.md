@@ -1,9 +1,13 @@
-My development setup on macOS
+dotfiles
 ========
+
+My development setup on macOS
 
 ## Prerequisites
 
 - git
+
+## How to
 
 ```bash
 $ git clone https://github.com/chensoul/dotfiles.git
