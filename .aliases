@@ -62,6 +62,8 @@ alias dstop="docker ps -aq | xargs docker stop"
 #delete docker images by name
 #docker images | awk '/^chensoul/ {print $3}' | xargs docker rmi
 
+alias hg='hogo server && open http://localhost:1313/'
+
 #k8s
 alias k='kubectl'
 alias kget='k get all'

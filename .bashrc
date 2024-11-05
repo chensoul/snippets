@@ -11,3 +11,7 @@ source ~/.aliases
 
 
 /usr/libexec/java_home -v 21 --exec java -version 2>/dev/null
+
+export JAVA_HOME=$(/usr/libexec/java_home)
+
+export DOCKER_DEFAULT_PLATFORM=linux/arm64
